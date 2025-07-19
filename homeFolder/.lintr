@@ -1,0 +1,15 @@
+linters: linters_with_defaults(
+   assignment_linter     = NULL,
+   brace_linter          = NULL,
+   commented_code_linter = NULL,
+   cyclocomp_linter      = NULL, # same as vscode-R
+   indentation_linter    = NULL,
+   line_length_linter    = NULL, # note: vscode-R default is 120
+   no_tab_linter.        = NULL,
+   object_name_linter    = NULL, # same as vscode-R
+   object_usage_linter   = NULL, # same as vscode-R
+   quotes_linter         = NULL,
+   semicolon_linter      = NULL,
+   seq_linter.           = NULL,
+   single_quotes_linter  = NULL,
+   trailing_whitespace_linter = NULL)
