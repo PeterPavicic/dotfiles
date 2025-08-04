@@ -109,10 +109,11 @@ fi
 
 # PS1='\[\e[1;32m\]\u@\h \[\e[1;34m\]\W\[\e[m\] \$ '
 
-alias mt="cd /home/peter/WU_OneDrive/QFin/MT\ Master\ Thesis/"
-alias obs="cd /home/peter/WU_OneDrive/obsidian/"
-alias qf="cd /home/peter/WU_OneDrive/QFin/"
-alias qfin="cd /home/peter/WU_OneDrive/QFin/"
-alias thesis="cd /home/peter/WU_OneDrive/QFin/MT\ Master\ Thesis/"
-alias wu="cd /home/peter/WU_OneDrive"
+# TODO:  Remove links to WU_OneDrive
 alias nvimdiff="nvim -d"
+alias obs="cd ~/obsidian/"
+alias wu="cd ~/WU_OneDrive"
+alias qf="cd ~/WU_OneDrive/QFin/"
+alias qfin="cd ~/WU_OneDrive/QFin/"
+alias thesis="cd ~/WU_OneDrive/QFin/MT\ Master\ Thesis/"
+alias mt="cd ~/WU_OneDrive/QFin/MT\ Master\ Thesis/"
