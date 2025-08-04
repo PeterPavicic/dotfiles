@@ -1,0 +1,6 @@
+[submodule "/home/peter/dotfiles/home/.config/nvim"]
+	path = /home/peter/dotfiles/home/.config/nvim
+	url = git@github.com:PeterPavicic/NeovimRC.git
+[submodule "home/.config/nvim"]
+	path = home/.config/nvim
+	url = git@github.com:PeterPavicic/NeovimRC.git
