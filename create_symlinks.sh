@@ -46,12 +46,18 @@ createSymlinks ()
     local originalPath="$HOME/$relPath"
 
     # if $originalPath not already symlink
-    if ! [[ -L "$originalPath" ]]
-    then
-      ln --symbolic --backup=simple --suffix='-bkp' "$absPath" "$originalPath"
-      echo "Created symlink: $originalPath -> $absPath"
-    else
+    if [[ -L "$originalPath" ]]; then
       echo "Symlink already exists: $originalPath -> $absPath"
+    else
+      # if directory
+      if [[ -d "$originalPath" ]]; then
+        mv "$originalPath" "$originalPath~bkp"
+        echo "Backed up contents of $originalPath"
+        ln --symbolic "$absPath" "$originalPath"
+      elif [[ -f "$originalPath" ]]; then
+        ln --symbolic --backup=simple "$absPath" "$originalPath"
+      fi
+      echo "Created symlink: $originalPath -> $absPath"
     fi
 done
 }
