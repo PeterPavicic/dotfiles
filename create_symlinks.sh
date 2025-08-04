@@ -49,14 +49,18 @@ createSymlinks ()
     if [[ -L "$originalPath" ]]; then
       echo "Symlink already exists: $originalPath -> $absPath"
     else
-      # if directory
-      if [[ -d "$originalPath" ]]; then
+      # if directory exists
+      if [[ -e "$originalPath" && -d "$originalPath" ]]; then
         mv "$originalPath" "$originalPath~bkp"
         echo "Backed up contents of $originalPath"
         ln --symbolic "$absPath" "$originalPath"
-      elif [[ -f "$originalPath" ]]; then
+      # if file exists
+      elif [[ -e "$originalPath" && -f "$originalPath" ]]; then
         ln --symbolic --backup=simple "$absPath" "$originalPath"
+      elif ! [[ -e "$originalPath" ]]; then
+        ln --symbolic "$absPath" "$originalPath"
       fi
+
       echo "Created symlink: $originalPath -> $absPath"
     fi
 done
