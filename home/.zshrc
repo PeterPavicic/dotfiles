@@ -107,11 +107,7 @@ fi
 
 # PS1='\[\e[1;32m\]\u@\h \[\e[1;34m\]\W\[\e[m\] \$ '
 
-# TODO:  Remove links to WU_OneDrive
-alias nvimdiff="nvim -d"
-alias obs="cd ~/obsidian/"
-alias wu="cd ~/WU_OneDrive"
-alias qf="cd ~/WU_OneDrive/QFin/"
-alias qfin="cd ~/WU_OneDrive/QFin/"
-alias thesis="cd ~/WU_OneDrive/QFin/MT\ Master\ Thesis/"
-alias mt="cd ~/WU_OneDrive/QFin/MT\ Master\ Thesis/"
+# import local zshrc: meant to be used for aliases/other options that wouldn't work equally on all computers
+if [ -f "$HOME/.localzshrc" ]; then
+  source "$HOME/.localzshrc"
+fi
