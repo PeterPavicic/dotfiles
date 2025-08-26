@@ -107,6 +107,13 @@ fi
 
 # PS1='\[\e[1;32m\]\u@\h \[\e[1;34m\]\W\[\e[m\] \$ '
 
+
+# requires lsd
+alias ls="lsd"
+
+# requires zoxide
+eval "$(zoxide init --cmd cd zsh)"
+
 # import local zshrc: meant to be used for aliases/other options that wouldn't work equally on all computers
 if [ -f "$HOME/.localzshrc" ]; then
   source "$HOME/.localzshrc"
