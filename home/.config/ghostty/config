@@ -42,7 +42,7 @@
 # # Just for example:
 # resize-overlay-duration = 4s 200ms
 
-theme = tokyonight
+theme = TokyoNight
 # theme = Gruvbox Dark
 
 font-family = FiraCode Nerd Font
