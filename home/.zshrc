@@ -1,4 +1,4 @@
-export PATH="$PATH:$HOME/go/bin"
+export PATH="$HOME/.local/bin:$PATH:$HOME/go/bin"
 # Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
