@@ -107,6 +107,10 @@ fi
 
 # PS1='\[\e[1;32m\]\u@\h \[\e[1;34m\]\W\[\e[m\] \$ '
 
+# keybinding <C-o> --> xdg-open
+bindkey -r '^O'
+bindkey -s '^O' 'xdg-open '
+bindkey -M viins -s '^O' 'xdg-open '
 
 # requires lsd
 alias ls="lsd"
