@@ -2,30 +2,38 @@
   "layer": "top",
   "position": "top",
   "modules-left": [
-        "hyprland/workspaces"
-    ],
+    "hyprland/workspaces"
+  ],
   "modules-center": ["clock"],
   "modules-right": [
     "pulseaudio",
+    // "backlight-slider",
     "battery",
     "power-profiles-daemon",
     "network",
     "cpu",
     "memory",
-    "tray",
+    // "tray", // The goal is to eventually remove this
     "custom/lock"
   ],
   "hyprland/workspaces": {
-    "format": "{name}: {icon}",
+    "format": "{name}: <big>{icon}</big>",
     "format-icons": {
-      "active": "",
+      "1": "",
+      "2": "",
+      "3": "",
+      "4": "",
+      "6": "󰙏",
+      "8": "󰎆",
+      "9": "󰖣",
+      // "active": "",
       "default": ""
     }
   },
-  "tray": {
-    "icon-size": 21,
-    "spacing": 10
-  },
+  // "tray": {
+  //   "icon-size": 21,
+  //   "spacing": 10
+  // },
   "clock": {
     "timezone": "Europe/Vienna",
     "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
@@ -39,7 +47,7 @@
     "format-ethernet": "󰈀 ",
     "format-disconnected": "󰤠 ",
     "interval": 5,
-    "tooltip": false
+    "tooltip": true
   },
   "cpu": {
     "interval": 1,
@@ -89,5 +97,14 @@
   "later": {
     "format": "<span class='icon'>{icon}</span> <span class='text'>{text}</span>"
   }
-
+  // "backlight-slider": {
+  //   "min": 1,
+  //   "max": 100,
+  //   "orientation": "horizontal"
+  // }
+  // TODO: Add keyboard language icon
+  // TODO: Only 1 internet icon
+  // TODO: Bluetooth icon
+  // TODO: Control power profile through triple-click battery (if possible)
+  // TODO: Brightness control
 }

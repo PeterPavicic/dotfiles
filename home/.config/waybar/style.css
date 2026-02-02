@@ -37,6 +37,7 @@
   border-radius: 5px;
 }
 
+#power-profiles-daemon,
 #custom-music,
 #tray,
 #backlight,
@@ -49,15 +50,8 @@
 #custom-lock,
 #custom-power {
   background-color: #101010;
-  padding: 0.5rem 1rem;
-  margin: 5px 0;
-  border-radius: 0px 5px 5px 0px;
-}
-
-#custom-stream_status {
-  background-color: #101010;
-  padding: 0.5rem 1rem;
-  margin: 5px 0;
+  padding: 0.7rem 0.7rem;
+  margin: 3px 0;
   border-radius: 0px 5px 5px 0px;
 }
 
@@ -112,6 +106,12 @@
   margin-right: 1rem;
   border-radius: 0px 5px 5px 0px;
   color: #e78284;
+}
+
+#power-profiles-daemon {
+  color: #e6d68a;
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
 }
 
 #tray {
