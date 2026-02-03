@@ -1,3 +1,3 @@
 # dotfiles
 
-This folder contains various dotfiles e.g. firefox, sidebery settings, KDE shortcuts, etc.
+This repo contains various dotfiles I use on Linux.
