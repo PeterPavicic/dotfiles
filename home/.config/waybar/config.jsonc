@@ -11,6 +11,7 @@
     "battery",
     "power-profiles-daemon",
     "network",
+    "hyprland/language",
     "cpu",
     "memory",
     // "tray", // The goal is to eventually remove this
@@ -97,6 +98,10 @@
   },
   "later": {
     "format": "<span class='icon'>{icon}</span> <span class='text'>{text}</span>"
+  },
+  "hyprland/language": {
+    "format": "{short}"
+    // "on-click": "hyprlandmsg input type:keyboard xkb_switch_layout next"
   }
   // "backlight-slider": {
   //   "min": 1,
