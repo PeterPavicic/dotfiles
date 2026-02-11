@@ -1,3 +1,9 @@
 export QT_QPA_PLATFORMTHEME=hyprqt6engine
 export XCURSOR_SIZE=24
 export HYPRCURSOR_SIZE=24
+
+NVIDIA_ENV="$HOME/.config/uwsm/nvidiaEnv" 
+
+if [ -e "$NVIDIA_ENV" ]; then
+  source "$NVIDIA_ENV"
+fi
