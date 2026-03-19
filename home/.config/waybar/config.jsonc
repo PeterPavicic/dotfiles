@@ -15,6 +15,7 @@
     "cpu",
     "memory",
     // "tray", // The goal is to eventually remove this
+    "idle_inhibitor",
     "custom/lock"
   ],
   "hyprland/workspaces": {
@@ -102,6 +103,13 @@
   "hyprland/language": {
     "format": "{short}"
     // "on-click": "hyprlandmsg input type:keyboard xkb_switch_layout next"
+  },
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "format-icons": {
+      "activated": "",
+      "deactivated": ""
+    }
   }
   // "backlight-slider": {
   //   "min": 1,
