@@ -61,7 +61,8 @@
     "format-icons": {
       "default": [" ", " "]
     },
-    "on-click": "pavucontrol"
+    "on-click": "pavucontrol",
+    "on-click-middle": "pactl set-sink-mute @DEFAULT_SINK@ toggle"
   },
   "backlight": {
     "reverse-scrolling": true,
