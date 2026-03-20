@@ -47,6 +47,13 @@
   color: #c6d0f5;
 }
 
+#custom-power {
+  padding: 0rem 0.3rem;
+  margin: 0px 3px;
+  color: #ea999c;
+}
+
+
 #power-profiles-daemon,
 #network,
 #language {

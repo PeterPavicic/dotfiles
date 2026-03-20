@@ -5,7 +5,10 @@
   "modules-left": [
     "hyprland/workspaces"
   ],
-  "modules-center": ["clock"],
+  "modules-center": [
+    // FIX: Power button placement
+    // "custom/power",
+    "clock"],
   "modules-right": [
     "pulseaudio",
     "backlight",
@@ -34,6 +37,11 @@
       // "active": "",
       "default": ""
     }
+  },
+  "custom/power": {
+    "format" : "⏻ ",
+    "tooltip": false,
+    "on-click": "pkill rofi || rofi -show power-menu -modi power-menu:~/.config/rofi/rofi-power-menu/rofi-power-menu"
   },
   "clock": {
     "timezone": "Europe/Vienna",
