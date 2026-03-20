@@ -5,10 +5,7 @@
   "modules-left": [
     "hyprland/workspaces"
   ],
-  "modules-center": [
-    // FIX: Power button placement
-    // "custom/power",
-    "clock"],
+  "modules-center": ["clock"],
   "modules-right": [
     "pulseaudio",
     "backlight",
@@ -91,14 +88,16 @@
       "power-saver": ""
     }
   },
-  // FIX: Tooltip
-  // FIX: on-click: open network settings
+
   "network": {
     "format-wifi": "󰤢 ",
+    "format-disabled": "󰤭 ",
     "format-ethernet": "󰈀 ",
     "format-disconnected": "󰤠 ",
     "interval": 5,
-    "tooltip": true
+    "tooltip": false,
+    "on-click": "bash ~/.config/rofi/rofi-wifi-menu/rofi-wifi-menu.sh",
+    "on-click-middle": "rfkill toggle wifi"
   },
   "hyprland/language": {
     "format": "{short}"
