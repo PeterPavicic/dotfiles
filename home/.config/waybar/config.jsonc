@@ -8,11 +8,12 @@
   "modules-center": ["clock"],
   "modules-right": [
     "pulseaudio",
-    // "backlight",
+    "backlight",
     "battery",
     "power-profiles-daemon",
     "network",
     "hyprland/language",
+    "bluetooth",
     "cpu",
     "memory",
     "idle_inhibitor",
@@ -25,6 +26,7 @@
       "2": "",
       "3": "",
       "4": "",
+      "5": "",
       "6": "󰙏",
       "7": "󰎁",
       "8": "󰎆",
@@ -45,11 +47,18 @@
     "scroll-step": 1,
     "reverse-scrolling": true,
     "format": "{icon} {volume:>2}%",
+    "format-bluetooth": "󰂰 {icon}{volume:>2}%",
     "format-muted": " ",
     "format-icons": {
       "default": [" ", " "]
     },
     "on-click": "pavucontrol"
+  },
+  "backlight": {
+    "reverse-scrolling": true,
+    "device": "intel_backlight",
+    "format": "{icon} {percent:>2}%",
+    "format-icons": [" "]
   },
   "battery": {
     "interval": 60,
@@ -72,6 +81,8 @@
       "power-saver": ""
     }
   },
+  // FIX: Tooltip
+  // FIX: on-click: open network settings
   "network": {
     "format-wifi": "󰤢 ",
     "format-ethernet": "󰈀 ",
@@ -83,10 +94,21 @@
     "format": "{short}"
     // "on-click": "hyprlandmsg input type:keyboard xkb_switch_layout next"
   },
+  "bluetooth": {
+    "format": "",
+    "format-disabled": "󰂲", // an empty format will hide the module
+    "format-connected": "󰂱",
+    "tooltip-format": "{controller_alias}\t{controller_address}",
+    "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
+    "tooltip-format-enumerate-connected-battery": "{controller_alias}\t{controller_address}\n\n{device_alias} {device_battery_percentage}%",
+    // "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%",
+    "on-click": "blueman-manager",
+    "on-click-middle": "rfkill toggle bluetooth"
+  },
   "cpu": {
     "interval": 1,
-    "format": "  {icon0}{icon1}{icon2}{icon3} {usage:>2}%",
-    "format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"]
+    "format": "  {usage:>2}%"
+    // "format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"]
   },
   "memory": {
     "interval": 30,
@@ -113,8 +135,4 @@
   //   "max": 100,
   //   "orientation": "horizontal"
   // }
-  // TODO: Only 1 internet icon
-  // TODO: Bluetooth icon
-  // TODO: Control power profile through triple-click battery (if possible)
-  // TODO: Brightness control
 }

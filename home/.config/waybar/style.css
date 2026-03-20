@@ -29,11 +29,12 @@
 
 #clock,
 #pulseaudio,
-/* #backlight, */
+#backlight,
 #battery,
 #power-profiles-daemon,
 #network,
 #language,
+#bluetooth,
 #cpu,
 #memory,
 #custom-lock,
@@ -44,6 +45,13 @@
   margin: 0px 3px;
   border-radius: 5px;
   color: #c6d0f5;
+}
+
+#power-profiles-daemon,
+#network,
+#language {
+  padding: 0rem 0.2rem;
+  margin: 0px 1px
 }
 
 #clock {
@@ -79,7 +87,20 @@
   padding-right: 1.2rem;
 }
 
+/* language */
+
 /* network */
+#bluetooth {
+  font-size: 18px;
+}
+
+/* network */
+#bluetooth.connected {
+  color: #8caaee;
+}
+
+/* cpu */
+/* memory */
 
 #idle_inhibitor {
   padding-right: 1rem;
@@ -89,9 +110,6 @@
   color: #babbf1;
   padding-right: 0.8rem;
 }
-
-/* cpu */
-/* memory */
 
 /* #custom-music { */
 /*   color: #ca9ee6; */
