@@ -20,7 +20,8 @@
     "cpu",
     "memory",
     "idle_inhibitor",
-    "custom/lock"
+    "custom/lock",
+    "custom/power"
   ],
   "hyprland/workspaces": {
     "format": "{name}: <big>{icon}</big>",
