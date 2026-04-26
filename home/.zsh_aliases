@@ -1,0 +1,12 @@
+alias ls="lsd" # use lsd
+alias l="ls -lAFh" # List files as a long list, show size, type, human-readable
+alias ga="git add"
+alias ga.="git add ."
+alias gc!="git commit --verbose --amend"
+alias gc="git commit --verbose"
+alias gcn!="git commit --verbose --amend --no-edit"
+alias glog="git log --graph --oneline"
+alias gloga="git log --graph --oneline --all"
+alias grep="grep --color"
+alias gst="git status"
+alias sgrep="grep -R -n -H -C 5 --exclude-dir={.git,.svn,CVS}"

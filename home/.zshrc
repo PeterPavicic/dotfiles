@@ -1,124 +1,150 @@
+######## Path ########
 export PATH="$HOME/.local/bin:$PATH:$HOME/go/bin"
-# Path to your Oh My Zsh installation.
-export ZSH="$HOME/.oh-my-zsh"
 
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time Oh My Zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-# ZSH_THEME="random"
-ZSH_THEME="murilasso"
-# ZSH_THEME="robbyrussell"
-
-# Set list of themes to pick from when loading at random
-# Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in $ZSH/themes/
-# If set to an empty array, this variable will have no effect.
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" "awesomepanda" "edvardm" "murilasso" "sorin")
-
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
-
-# Uncomment the following line to use hyphen-insensitive completion.
-# Case-sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
-
-# Uncomment one of the following lines to change the auto-update behavior
-# zstyle ':omz:update' mode disabled  # disable automatic updates
-# zstyle ':omz:update' mode auto      # update automatically without asking
-# zstyle ':omz:update' mode reminder  # just remind me to update when it's time
-
-# Uncomment the following line to change how often to auto-update (in days).
-# zstyle ':omz:update' frequency 13
-
-# Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS="true"
-
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
-
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment the following line to enable command auto-correction.
-ENABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-# You can also set it to another string to have that shown instead of the default red dots.
-# e.g. COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
-# Caution: this setting can cause issues with multiline prompts in zsh < 5.7.1 (see #5765)
-COMPLETION_WAITING_DOTS="true"
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# You can set one of the optional three formats:
-# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# or set a custom format using the strftime function format specifications,
-# see 'man strftime' for details.
-HIST_STAMPS="%Y.%m.%d %H:%M"
-
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
-
-# Which plugins would you like to load?
-# Standard plugins can be found in $ZSH/plugins/
-# Custom plugins may be added to $ZSH_CUSTOM/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-autosuggestions zsh-vi-mode)
-# plugins=(git zsh-autosuggestions zsh-syntax-highlighting fast-syntax-highlighting zsh-autocomplete)
-
-source $ZSH/oh-my-zsh.sh
-
-# User configuration
-
-
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
+######## Locale ######## 
 export LANG=en_US.UTF-8
 
-# Preferred editor for local and remote sessions
+######## Editor ########
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='vim'
 else
   export EDITOR='nvim'
 fi
 
-# Compilation flags
-# export ARCHFLAGS="-arch $(uname -m)"
 
-# Set personal aliases, overriding those provided by Oh My Zsh libs,
-# plugins, and themes. Aliases can be placed here, though Oh My Zsh
-# users are encouraged to define aliases within a top-level file in
-# the $ZSH_CUSTOM folder, with .zsh extension. Examples:
-# - $ZSH_CUSTOM/aliases.zsh
-# - $ZSH_CUSTOM/macos.zsh
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
+######## History ########
+HISTFILE=$HOME/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+setopt append_history # append history (not overwrite)
+setopt inc_append_history # append after execution
+setopt share_history # share across sessions
+setopt hist_ignore_all_dups # deduplicate
+setopt hist_reduce_blanks # reduce blanks before writing to history
 
-# PS1='\[\e[1;32m\]\u@\h \[\e[1;34m\]\W\[\e[m\] \$ '
+#### Autocomplete ####
+setopt auto_menu
+setopt menu_complete # autocmp first menu match
+setopt autocd # type a dir to cd
+setopt no_case_glob no_case_match # make cmp case insensitive
+setopt globdots # include dotfiles
+setopt extended_glob # match ~ # ^
+setopt interactive_comments # allow comments in shell
+unsetopt prompt_sp # don't autoclean blanklines
+# stty stop undef # disable accidental ctrl s
 
-# keybinding <C-o> --> xdg-open
+######## Completion ########
+autoload -Uz compinit && compinit
+autoload -U colors && colors
+# autoload -Uz tetris # main attraction of zsh, obviously
+
+# place cursor at the end when searching history
+autoload -U history-search-end
+zle -N history-beginning-search-backward-end history-search-end
+zle -N history-beginning-search-forward-end history-search-end
+
+# colors
+eval "$(dircolors ~/.dircolors)"
+
+zstyle ':completion:*' menu select # tab opens cmp menu
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'  # case-insensitive
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS} # colorize cmp menu
+setopt CORRECT # replaces ENABLE_CORRECTION
+
+# make `/` character 'separate word', so it is not deleted with Ctrl-W
+WORDCHARS=${WORDCHARS/\/}
+
+######## fzf setup ########
+source <(fzf --zsh) # allow for fzf history widget
+
+
+######## Git prompt via vcs_info ######## 
+autoload -Uz vcs_info
+zstyle ':vcs_info:*' enable git
+zstyle ':vcs_info:*' check-for-changes true
+
+# Don't show staged/unstaged
+zstyle ':vcs_info:*' stagedstr '%F%f' # staged changes
+zstyle ':vcs_info:*' unstagedstr '%F%f' # unstaged changes
+
+# # Show staged/unstaged
+# zstyle ':vcs_info:*' stagedstr '%F{green}+%f' # staged changes
+# zstyle ':vcs_info:*' unstagedstr '%F{yellow}!%f' # unstaged changes
+
+# Dirty/clean indicator (replaces OMZ's ✗/✔)
+function _git_indicator() {
+  [[ -z "${vcs_info_msg_0_}" ]] && return
+  local branch="${vcs_info_msg_0_}"
+  if [[ $(git status --porcelain 2>/dev/null) ]]; then
+    echo "%F{blue}${branch}%f %F{red}✗%f"
+  else
+    echo "%F{blue}${branch}%f %F{green}✔%f"
+  fi
+}
+
+# Append %m to formats so the hook output shows up
+zstyle ':vcs_info:git:*' formats '%F{blue}%b%f%c%u%m'
+zstyle ':vcs_info:git:*' actionformats '%F{blue}%b%f|%F{red}%a%f%c%u%m'
+
+precmd() { vcs_info }
+setopt PROMPT_SUBST
+
+PROMPT='%B%F{green}%n@%m%f%b:%F{blue}%~%f
+$(_git_indicator) %B$%b '
+
+######## Keybinds ######## 
+# Vi mode
+bindkey -v
+export KEYTIMEOUT=10 # 100ms escape delay
+
+# regular keybinds
+bindkey -M viins '^W' backward-kill-word
+bindkey -M viins '^U' backward-kill-line
+bindkey -M viins '^?' backward-delete-char
+
+# completion: Shift-Tab to go backwards
+bindkey '\e[Z' reverse-menu-complete
+
+# fzf
+bindkey '^F' fzf-file-widget # additionally to Ctrl-T Ctrl-F also opens fzf-file-widget
+
+# zle -N tetris
+# bindkey '^T' tetris
+
+# Ctrl-O to insert xdg-open
 bindkey -r '^O'
 bindkey -s '^O' 'xdg-open '
 bindkey -M viins -s '^O' 'xdg-open '
 
-# requires lsd
-alias ls="lsd"
+# autocomplete using typed text, cursor at the end
+bindkey '\e[A' history-beginning-search-backward-end
+bindkey '\e[B' history-beginning-search-forward-end
 
-# requires zoxide
+# disable accidental ctrl s
+stty stop undef
+
+######## Aliases ######## 
+source ~/.zsh_aliases
+
+######## Plugins (source AFTER everything else) ######## 
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# zoxide
 eval "$(zoxide init --cmd cd zsh)"
 
-# import local zshrc: meant to be used for aliases/other options that wouldn't work equally on all computers
-if [ -f "$HOME/.localzshrc" ]; then
-  source "$HOME/.localzshrc"
-fi
+######## Local overrides######## 
+[[ -f "$HOME/.localzshrc" ]] && source "$HOME/.localzshrc"
+
+######## Match cursor to mode (normal/insert) ########
+function zle-keymap-select zle-line-init {
+  if [[ $KEYMAP == vicmd ]]; then
+    echo -ne '\e[2 q' # block
+  else
+    echo -ne '\e[6 q' # beam
+  fi
+}
+
+zle -N zle-keymap-select
+zle -N zle-line-init
+echo -ne '\e[6 q'  # default to beam on startup
