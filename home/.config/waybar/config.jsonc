@@ -2,9 +2,7 @@
   "layer": "top",
   "position": "top",
   "height": 36,
-  "modules-left": [
-    "hyprland/workspaces"
-  ],
+  "modules-left": ["hyprland/workspaces"],
   "modules-center": ["clock"],
   "modules-right": [
     "pulseaudio",
@@ -37,7 +35,7 @@
     }
   },
   "custom/power": {
-    "format" : "⏻ ",
+    "format": "⏻ ",
     "tooltip": false,
     "on-click": "pkill rofi || rofi -show power-menu -modi power-menu:~/.config/rofi/rofi-power-menu/rofi-power-menu"
   },
@@ -47,7 +45,6 @@
     "format": "{:%Y. %m. %d. - %H:%M}",
     "format-alt": "{:%B %d - %H:%M:%S}",
     "interval": 1
-
   },
   "pulseaudio": {
     "scroll-step": 1,
