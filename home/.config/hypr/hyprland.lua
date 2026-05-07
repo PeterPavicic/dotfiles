@@ -4,15 +4,11 @@
 -- MONITORS
 require("monitors")
 
--- PROGRAMS
--- See https://wiki.hyprland.org/Configuring/Keywords/
--- Set programs that you use
-terminal = "uwsm app -- ghostty"
-fileManager = "uwsm app -- thunar"
-browser = "uwsm app -- firefox"
-waybar = "waybar"
-cliphist = "uwsm app -- cliphist"
-wl_paste = "uwsm app -- wl-paste --watch cliphist store"
+-- AUTOSTART
+require("autostart")
+
+-- -- PROGRAMS
+-- require("programs")
 
 -- VARIABLES
 require("variables")
@@ -24,9 +20,6 @@ require("layout")
 require("input")
 
 -- KEYBINDINGS
--- FIX: This
 require("keybindings")
---
---
---
-hl.dsp.exec_raw("uwsm finalize")
+
+hl.dsp.exec_cmd("uwsm finalize")

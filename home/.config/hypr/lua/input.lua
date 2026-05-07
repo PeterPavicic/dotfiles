@@ -1,22 +1,24 @@
 -- https://wiki.hyprland.org/Configuring/Variables/--input
-input = {
-  kb_layout = { "us", "hu", "si" },
-  kb_variant = { "" },
-  kb_options = { "caps:escape", "grp:win_space_toggle" },
+hl.config({
+  input = {
+    kb_layout = { "us", "hu", "si" },
+    kb_variant = { "", "", "" },
+    kb_options = { "caps:escape", "grp:win_space_toggle" }, -- TODO: rewrite to notify (possibly in center)
 
-  follow_mouse = 1,
-  follow_mouse_threshold = 200,
+    follow_mouse = 1,
+    follow_mouse_threshold = 200,
 
-  sensitivity = 0.2, -- -1.0 - 1.0, 0 means no modification.
+    sensitivity = 0.2, -- -1.0 - 1.0, 0 means no modification.
 
-  touchpad = {
-    natural_scroll = true,
+    touchpad = {
+      natural_scroll = true,
+    },
   },
-}
+})
 
 -- https://wiki.hyprland.org/Configuring/Variables/#gestures
 -- HACK: These are probably wrong
-hl.gesture = {
+hl.gesture({
   {
     fingers = 3,
     direction = "horizontal",
@@ -25,14 +27,16 @@ hl.gesture = {
   {
     fingers = 3,
     direction = "up",
-    action = hl.dsp.workspace("e~1"),
+    action = hl.dsp.focus({ workspace = "e~1" }),
   },
   {
     fingers = 3,
     direction = "down",
-    action = hl.dsp.focus({ last }),
+    action = hl.dsp.focus({ workspace = "last" }),
   },
-}
+  -- TEST: I have no idea how this will be
+  { fingers = 3, direction = "pinch", action = "cursorZoom", zoom_level = "1.1", mode = "live" },
+})
 
 -- Example per-device config
 -- See https://wiki.hyprland.org/Configuring/Keywords/#per-device-input-configs for more
