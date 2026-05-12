@@ -7,7 +7,7 @@ image/x-xcf=gimp.desktop;org.gnome.Loupe.desktop;org.kde.kolourpaint.desktop;oku
 text/csv=org.kde.kate.desktop;nvim.desktop;libreoffice-calc.desktop;org.kde.kwrite.desktop;okularApplication_txt.desktop;libreoffice-writer.desktop;
 text/csv-schema=org.kde.kate.desktop;nvim.desktop;org.kde.kwrite.desktop;okularApplication_txt.desktop;libreoffice-writer.desktop;
 text/markdown=nvim.desktop;
-text/plain=nvim.desktop;
+text/plain=org.kde.kate.desktop;nvim.desktop;
 text/x-cmake=nvim.desktop;
 text/x-r-doc=nvim.desktop;org.kde.kate.desktop;org.kde.kwrite.desktop;libreoffice-writer.desktop;okularApplication_txt.desktop;
 text/x-r-history=nvim.desktop;org.kde.kate.desktop;org.kde.kwrite.desktop;libreoffice-writer.desktop;okularApplication_txt.desktop;
@@ -58,7 +58,7 @@ x-scheme-handler/webcal=userapp-Thunderbird-98EW52.desktop;
 x-scheme-handler/webcals=userapp-Thunderbird-98EW52.desktop;
 image/jpeg=org.gnome.Loupe.desktop;
 image/webp=org.gnome.Loupe.desktop;
-image/png=org.gnome.Loupe.desktop;
+image/png=okularApplication_kimgio.desktop;firefox.desktop;org.gnome.Loupe.desktop;
 
 [Default Applications]
 application/json=org.kde.kate.desktop;
@@ -149,3 +149,4 @@ image/svg+xml=org.gnome.Loupe.desktop
 image/svg+xml-compressed=org.gnome.Loupe.desktop=org.gnome.Loupe.desktop
 inode/directory=thunar.desktop
 x-scheme-handler/vuescan=vuescan-url-handler.desktop
+x-scheme-handler/claude-cli=claude-code-url-handler.desktop
