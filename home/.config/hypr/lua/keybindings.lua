@@ -1,11 +1,10 @@
 -- See https://wiki.hyprland.org/Configuring/Keywords/
 local mainMod = "SUPER" -- Sets "Windows" key as main modifier
-local programs = require("programs")
+local programs = require("lua.programs")
 
 -- Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
 
 -- Cycle power profile
--- TODO: Rewrite to function
 hl.bind(mainMod .. "+ B", hl.dsp.exec_cmd("~/.config/hypr/cycle-power-profile.sh"))
 
 -- Open file manager
@@ -64,16 +63,16 @@ hl.bind(mainMod .. "+ KP_Up", hl.dsp.focus({ workspace = 8 }))
 hl.bind(mainMod .. "+ KP_Prior", hl.dsp.focus({ workspace = 9 }))
 hl.bind(mainMod .. "+ KP_Insert", hl.dsp.focus({ workspace = 10 }))
 -- Move with numpad
-hl.bind(mainMod .. "+ SHIFT + KP_End", hl.dsp.move({ workspace = 1 }))
-hl.bind(mainMod .. "+ SHIFT + KP_Down", hl.dsp.move({ workspace = 2 }))
-hl.bind(mainMod .. "+ SHIFT + KP_Next", hl.dsp.move({ workspace = 3 }))
-hl.bind(mainMod .. "+ SHIFT + KP_Left", hl.dsp.move({ workspace = 4 }))
-hl.bind(mainMod .. "+ SHIFT + KP_Begin", hl.dsp.move({ workspace = 5 }))
-hl.bind(mainMod .. "+ SHIFT + KP_Right", hl.dsp.move({ workspace = 6 }))
-hl.bind(mainMod .. "+ SHIFT + KP_Home", hl.dsp.move({ workspace = 7 }))
-hl.bind(mainMod .. "+ SHIFT + KP_Up", hl.dsp.move({ workspace = 8 }))
-hl.bind(mainMod .. "+ SHIFT + KP_Prior", hl.dsp.move({ workspace = 9 }))
-hl.bind(mainMod .. "+ SHIFT + KP_Insert", hl.dsp.move({ workspace = 10 }))
+hl.bind(mainMod .. "+ SHIFT + KP_End", hl.dsp.window.move({ workspace = 1 }))
+hl.bind(mainMod .. "+ SHIFT + KP_Down", hl.dsp.window.move({ workspace = 2 }))
+hl.bind(mainMod .. "+ SHIFT + KP_Next", hl.dsp.window.move({ workspace = 3 }))
+hl.bind(mainMod .. "+ SHIFT + KP_Left", hl.dsp.window.move({ workspace = 4 }))
+hl.bind(mainMod .. "+ SHIFT + KP_Begin", hl.dsp.window.move({ workspace = 5 }))
+hl.bind(mainMod .. "+ SHIFT + KP_Right", hl.dsp.window.move({ workspace = 6 }))
+hl.bind(mainMod .. "+ SHIFT + KP_Home", hl.dsp.window.move({ workspace = 7 }))
+hl.bind(mainMod .. "+ SHIFT + KP_Up", hl.dsp.window.move({ workspace = 8 }))
+hl.bind(mainMod .. "+ SHIFT + KP_Prior", hl.dsp.window.move({ workspace = 9 }))
+hl.bind(mainMod .. "+ SHIFT + KP_Insert", hl.dsp.window.move({ workspace = 10 }))
 
 -- Switch keyboard layout
 -- hl.bind(mainMod .. SPACE, hl.dsp.exec_cmd("hyprctl switchxkblayout current next"))

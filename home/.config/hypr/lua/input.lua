@@ -1,9 +1,11 @@
--- https://wiki.hyprland.org/Configuring/Variables/--input
+-- https://wiki.hypr.land/Configuring/Basics/Variables/#input
 hl.config({
   input = {
-    kb_layout = { "us", "hu", "si" },
-    kb_variant = { "", "", "" },
-    kb_options = { "caps:escape", "grp:win_space_toggle" }, -- TODO: rewrite to notify (possibly in center)
+    kb_layout = "us,hu,si",
+    -- kb_layout = { "us", "hu", "si" },
+    kb_variant = ",,",
+    -- TODO: rewrite to notify (possibly in center)
+    kb_options = "caps:escape,grp:win_space_toggle",
 
     follow_mouse = 1,
     follow_mouse_threshold = 200,
@@ -16,26 +18,46 @@ hl.config({
   },
 })
 
--- https://wiki.hyprland.org/Configuring/Variables/#gestures
--- HACK: These are probably wrong
+-- https://wiki.hypr.land/Configuring/Advanced-and-Cool/Gestures/
 hl.gesture({
-  {
-    fingers = 3,
-    direction = "horizontal",
-    action = "workspace",
-  },
-  {
-    fingers = 3,
-    direction = "up",
-    action = hl.dsp.focus({ workspace = "e~1" }),
-  },
-  {
-    fingers = 3,
-    direction = "down",
-    action = hl.dsp.focus({ workspace = "last" }),
-  },
-  -- TEST: I have no idea how this will be
-  { fingers = 3, direction = "pinch", action = "cursorZoom", zoom_level = "1.1", mode = "live" },
+  fingers = 3,
+  direction = "horizontal",
+  action = "workspace",
+})
+
+-- -- https://wiki.hypr.land/Configuring/Advanced-and-Cool/Gestures/
+-- hl.gesture({
+--   fingers = 4,
+--   direction = "up",
+--   action = function()
+--     hl.dispatch(hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"))
+--   end,
+-- })
+
+-- NOTE: Mybe make 3 finger gesture up/down bring in special workspace
+-- Then figure out what to do for PC
+hl.gesture({
+  fingers = 3,
+  direction = "up",
+  action = function()
+    hl.dispatch(hl.dsp.focus({ workspace = "e~1" }))
+  end,
+})
+
+hl.gesture({
+  fingers = 3,
+  direction = "down",
+  action = function()
+    hl.dispatch(hl.dsp.focus({ workspace = "e~11" }))
+  end,
+})
+
+hl.gesture({
+  fingers = 3,
+  direction = "pinch",
+  action = "cursorZoom",
+  zoom_level = 1.1,
+  mode = "live",
 })
 
 -- Example per-device config

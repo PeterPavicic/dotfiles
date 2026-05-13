@@ -7,9 +7,9 @@ M.fileManager = "uwsm app -- thunar"
 -- M.browser = "uwsm app -- firefox"
 
 M.autostart = {
-  waybar = "waybar",
-  cliphist = "uwsm app -- cliphist",
-  wl_paste = "uwsm app -- wl-paste --watch cliphist store",
+  "uwsm app -- waybar",
+  "uwsm app -- cliphist",
+  "uwsm app -- wl-paste --watch cliphist store",
 }
 
 return M

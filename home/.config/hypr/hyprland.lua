@@ -2,24 +2,22 @@
 -- https://wiki.hyprland.org/Configuring/
 
 -- MONITORS
-require("monitors")
+require("lua.monitors")
 
 -- AUTOSTART
-require("autostart")
+require("lua.autostart")
 
 -- -- PROGRAMS
--- require("programs")
+-- require("lua.programs")
 
 -- VARIABLES
-require("variables")
+require("lua.variables")
 
 -- LAYOUT
-require("layout")
+require("lua.layout")
 
 -- INPUT
-require("input")
+require("lua.input")
 
 -- KEYBINDINGS
-require("keybindings")
-
-hl.dsp.exec_cmd("uwsm finalize")
+require("lua.keybindings")
