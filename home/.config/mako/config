@@ -1,0 +1,44 @@
+sort=-time
+layer=overlay
+background-color=#2e3440
+width=300
+height=110
+border-size=2
+border-color=#88c0d0
+border-radius=15
+icons=0
+max-icon-size=64
+default-timeout=5000
+ignore-timeout=1
+font=monospace 11
+
+[urgency=low]
+border-color=#cccccc
+
+[urgency=normal]
+border-color=#d08770
+
+[urgency=high]
+border-color=#bf616a
+default-timeout=0
+
+[category=mpd]
+default-timeout=2000
+group-by=category
+
+
+# source: CLAUDE
+# ── Keyboard switch notifications ─────────────────────────────────────────────
+[category=kbd-switch]
+anchor=center
+default-timeout=500
+ignore-timeout=1
+width=160
+height=64
+border-size=0
+border-radius=14
+background-color=#313244ee
+text-color=#cdd6f4ff
+text-alignment=center
+format=<b>%b</b>
+icons=0
