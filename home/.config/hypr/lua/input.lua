@@ -4,8 +4,7 @@ hl.config({
     kb_layout = "us,hu,si",
     -- kb_layout = { "us", "hu", "si" },
     kb_variant = ",,",
-    -- TODO: rewrite to notify (possibly in center)
-    kb_options = "caps:escape,grp:win_space_toggle",
+    kb_options = "caps:escape",
 
     follow_mouse = 1,
     follow_mouse_threshold = 200,

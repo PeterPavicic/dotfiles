@@ -4,6 +4,15 @@ local programs = require("lua.programs")
 
 -- Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
 
+-- Cycle keyboard language
+local switchLayout = "makoctl list -j | jq -r 'first(.[] | select(.category == \"kbd-switch\")) | .id' "
+  .. "| xargs -r -n1 makoctl dismiss -n && "
+  .. "hyprctl switchxkblayout all next && "
+  .. "notify-send -c kbd-switch -i input-keyboard -h boolean:transient:true '' "
+  .. "\"$(hyprctl devices -j | jq -r '[.keyboards[] | select(.main==true)][0].active_keymap')\""
+
+hl.bind(mainMod .. "+ SPACE", hl.dsp.exec_cmd(switchLayout))
+
 -- Cycle power profile
 hl.bind(mainMod .. "+ B", hl.dsp.exec_cmd("~/.config/hypr/cycle-power-profile.sh"))
 
@@ -73,9 +82,6 @@ hl.bind(mainMod .. "+ SHIFT + KP_Home", hl.dsp.window.move({ workspace = 7 }))
 hl.bind(mainMod .. "+ SHIFT + KP_Up", hl.dsp.window.move({ workspace = 8 }))
 hl.bind(mainMod .. "+ SHIFT + KP_Prior", hl.dsp.window.move({ workspace = 9 }))
 hl.bind(mainMod .. "+ SHIFT + KP_Insert", hl.dsp.window.move({ workspace = 10 }))
-
--- Switch keyboard layout
--- hl.bind(mainMod .. SPACE, hl.dsp.exec_cmd("hyprctl switchxkblayout current next"))
 
 -- Move active window to a workspace with mainMod + SHIFT + [0-9]
 
