@@ -51,6 +51,9 @@ group-by=category
 width=400
 # height=100
 
+[app-name="NetworkManager Applet"]
+width=400
+# height=100
 
 # Keyboard switch notifications
 [category=kbd-switch]
