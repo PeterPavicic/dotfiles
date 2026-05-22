@@ -30,7 +30,6 @@
       "7": "󰎁",
       "8": "󰎆",
       "9": "󰖣",
-      // "active": "",
       "default": ""
     }
   },
@@ -76,7 +75,7 @@
   },
   "power-profiles-daemon": {
     "format": "{icon}",
-    "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
+    "tooltip-format": "Power profile: {profile}",
     "tooltip": true,
     "format-icons": {
       "default": "",
@@ -113,7 +112,6 @@
   "cpu": {
     "interval": 1,
     "format": "  {usage:>2}%"
-    // "format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"]
   },
   "memory": {
     "interval": 30,
@@ -134,10 +132,4 @@
     "on-click": "sh -c '(sleep 0.5s; hyprlock)' & disown",
     "format": ""
   }
-
-  // "backlight-slider": {
-  //   "min": 1,
-  //   "max": 100,
-  //   "orientation": "horizontal"
-  // }
 }

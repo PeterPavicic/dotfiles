@@ -53,18 +53,17 @@
   color: #ea999c;
 }
 
-
 #power-profiles-daemon,
 #network,
 #language {
   padding: 0rem 0.2rem;
-  margin: 0px 1px
+  margin: 0px 1px;
 }
 
 #clock {
   color: #8caaee;
   border-radius: 5px;
-  background: rgba(11, 11, 11, 0.80);
+  background: rgba(11, 11, 11, 0.8);
 }
 
 #pulseaudio {
@@ -75,7 +74,6 @@
 /*   color: #e5c890; */
 /* } */
 
-
 #battery {
   color: #a6d189;
   padding-left: 0rem;
@@ -85,6 +83,7 @@
   color: #8caaee;
 }
 
+/* TODO: Fix background colour */
 #battery.warning:not(.charging) {
   color: #e78284;
 }
@@ -103,7 +102,7 @@
 
 /* network */
 #bluetooth.connected {
-  color: #8caaee;
+  color: #7c9cff;
 }
 
 /* cpu */
@@ -122,7 +121,6 @@
 /*   color: #ca9ee6; */
 /*   border-radius: 5px; */
 /* } */
-
 
 /* #custom-power { */
 /*   margin-right: 1rem; */
