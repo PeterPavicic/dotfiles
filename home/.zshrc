@@ -44,7 +44,7 @@ zle -N history-beginning-search-backward-end history-search-end
 zle -N history-beginning-search-forward-end history-search-end
 
 # colors
-eval "$(dircolors ~/.dircolors)"
+eval "$(dircolors $HOME/.dircolors)"
 
 zstyle ':completion:*' menu select # tab opens cmp menu
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'  # case-insensitive
@@ -124,7 +124,7 @@ bindkey '\e[B' history-beginning-search-forward-end
 stty stop undef
 
 ######## Aliases ######## 
-source ~/.zsh_aliases
+source $HOME/.zsh_aliases
 
 ######## Plugins (source AFTER everything else) ######## 
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh

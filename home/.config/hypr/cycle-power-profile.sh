@@ -13,4 +13,4 @@ esac
 powerprofilesctl set "$next"
 
 # Optional: desktop notification (remove if you don't want it)
-command -v notify-send >/dev/null 2>&1 && notify-send "Power profile" "Switched to: $next"
+notify-send "Power profile" "Switched to: $next"

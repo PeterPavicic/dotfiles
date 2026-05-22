@@ -37,7 +37,7 @@
   "custom/power": {
     "format": "⏻ ",
     "tooltip": false,
-    "on-click": "pkill rofi || rofi -show power-menu -modi power-menu:~/.config/rofi/rofi-power-menu/rofi-power-menu"
+    "on-click": "pkill rofi || rofi -show power-menu -modi power-menu:$HOME/.config/rofi/rofi-power-menu/rofi-power-menu"
   },
   "clock": {
     "timezone": "Europe/Vienna",
@@ -93,12 +93,12 @@
     "format-disconnected": "󰤠 ",
     "interval": 5,
     "tooltip": false,
-    "on-click": "bash ~/.config/rofi/rofi-wifi-menu/rofi-wifi-menu.sh",
+    "on-click": "bash $HOME/.config/rofi/rofi-wifi-menu/rofi-wifi-menu.sh",
     "on-click-middle": "rfkill toggle wifi"
   },
   "hyprland/language": {
-    "format": "{short}"
-    // "on-click": "hyprlandmsg input type:keyboard xkb_switch_layout next"
+    "format": "{short}",
+    "on-click": "$HOME/.config/hypr/switchLayout.sh"
   },
   "bluetooth": {
     "format": "",

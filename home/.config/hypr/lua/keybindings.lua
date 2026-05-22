@@ -8,7 +8,7 @@ local programs = require("lua.programs")
 hl.bind(mainMod .. "+ SPACE", hl.dsp.exec_cmd("$HOME/.config/hypr/switchLayout.sh"))
 
 -- Cycle power profile
-hl.bind(mainMod .. "+ B", hl.dsp.exec_cmd("~/.config/hypr/cycle-power-profile.sh"))
+hl.bind(mainMod .. "+ B", hl.dsp.exec_cmd("$HOME/.config/hypr/cycle-power-profile.sh"))
 
 -- Open file manager
 hl.bind(mainMod .. "+ E", hl.dsp.exec_cmd(programs.fileManager))
@@ -31,9 +31,11 @@ hl.bind(mainMod .. "+ W", hl.dsp.exec_cmd("pkill rofi || rofi -show window"))
 hl.bind(mainMod .. "+ S", hl.dsp.exec_cmd("pkill rofi || rofi -show recursivebrowser"))
 hl.bind(
   mainMod .. "+ X",
-  hl.dsp.exec_cmd("pkill rofi || rofi -show power-menu -modi power-menu:~/.config/rofi/rofi-power-menu/rofi-power-menu")
+  hl.dsp.exec_cmd(
+    "pkill rofi || rofi -show power-menu -modi power-menu:$HOME/.config/rofi/rofi-power-menu/rofi-power-menu"
+  )
 )
-hl.bind(mainMod .. "+ I", hl.dsp.exec_cmd("pkill rofi || bash ~/.config/rofi/rofi-wifi-menu/rofi-wifi-menu.sh"))
+hl.bind(mainMod .. "+ I", hl.dsp.exec_cmd("pkill rofi || bash $HOME/.config/rofi/rofi-wifi-menu/rofi-wifi-menu.sh"))
 
 -- Move focus with mainMod + arrow keys
 hl.bind(mainMod .. " + left", hl.dsp.focus({ direction = "left" }))

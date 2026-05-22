@@ -39,11 +39,11 @@ rofi \
 
 You can use the script directly from this directory without needing to install
 it at all. If you want rofi to find it more easily, the script needs to be found
-in `PATH`. If you have `~/.local/bin` in `PATH`, you can just copy the script
+in `PATH`. If you have `$HOME/.local/bin` in `PATH`, you can just copy the script
 there:
 
 ```
-cp rofi-power-menu ~/.local/bin/
+cp rofi-power-menu $HOME/.local/bin/
 ```
 
 
