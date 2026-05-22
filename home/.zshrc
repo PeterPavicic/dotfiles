@@ -132,6 +132,8 @@ source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 
 # zoxide
 eval "$(zoxide init --cmd cd zsh)"
+# don't use zoxide in non-interactive sessions
+[[ -z $PS1 ]] && export _ZO_DOCTOR=0
 
 ######## Local overrides######## 
 [[ -f "$HOME/.localzshrc" ]] && source "$HOME/.localzshrc"
