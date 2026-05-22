@@ -5,13 +5,7 @@ local programs = require("lua.programs")
 -- Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
 
 -- Cycle keyboard language
-local switchLayout = "makoctl list -j | jq -r 'first(.[] | select(.category == \"kbd-switch\")) | .id' "
-  .. "| xargs -r -n1 makoctl dismiss -n && "
-  .. "hyprctl switchxkblayout all next && "
-  .. "notify-send -c kbd-switch -i input-keyboard -h boolean:transient:true '' "
-  .. "\"$(hyprctl devices -j | jq -r '[.keyboards[] | select(.main==true)][0].active_keymap')\""
-
-hl.bind(mainMod .. "+ SPACE", hl.dsp.exec_cmd(switchLayout))
+hl.bind(mainMod .. "+ SPACE", hl.dsp.exec_cmd("$HOME/.config/hypr/switchLayout.sh"))
 
 -- Cycle power profile
 hl.bind(mainMod .. "+ B", hl.dsp.exec_cmd("~/.config/hypr/cycle-power-profile.sh"))
