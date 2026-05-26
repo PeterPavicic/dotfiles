@@ -1,6 +1,6 @@
 -- See https://wiki.hyprland.org/Configuring/Keywords/
 local mainMod = "SUPER" -- Sets "Windows" key as main modifier
-local programs = require("lua.programs")
+local programs = require("lua.programs") -- programs and utilities
 
 -- Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
 
@@ -23,20 +23,20 @@ hl.bind(mainMod .. "+ SHIFT + F", hl.dsp.window.fullscreen())
 hl.bind(mainMod .. "+ F", hl.dsp.window.float({ action = "toggle" }))
 -- hl.bind(mainMod .. "+ T", layoutmsg, togglesplit -- dwindle)
 -- hl.bind(mainMod .. "+ SHIFT + T, layoutmsg, swapsplit -- dwindle)
+
+-- Enter/Exit
 hl.bind(mainMod .. "+ M", hl.dsp.exit())
 hl.bind(mainMod .. "+ Q", hl.dsp.window.close())
-hl.bind(mainMod .. "+ Return", hl.dsp.exec_cmd(programs.terminal))
-hl.bind(mainMod .. "+ KP_Enter", hl.dsp.exec_cmd(programs.terminal))
-hl.bind(mainMod .. "+ Super_L", hl.dsp.exec_cmd("pkill rofi || rofi -show drun"))
-hl.bind(mainMod .. "+ W", hl.dsp.exec_cmd("pkill rofi || rofi -show window"))
-hl.bind(mainMod .. "+ S", hl.dsp.exec_cmd("pkill rofi || rofi -show recursivebrowser"))
-hl.bind(
-  mainMod .. "+ X",
-  hl.dsp.exec_cmd(
-    "pkill rofi || rofi -show power-menu -modi power-menu:$HOME/.config/rofi/rofi-power-menu/rofi-power-menu"
-  )
-)
-hl.bind(mainMod .. "+ I", hl.dsp.exec_cmd("pkill rofi || bash $HOME/.config/rofi/rofi-wifi-menu/rofi-wifi-menu.sh"))
+
+-- Programs
+hl.bind(mainMod .. " + I", hl.dsp.exec_cmd(programs.WiFiPicker))
+hl.bind(mainMod .. " + KP_Enter", hl.dsp.exec_cmd(programs.terminal))
+hl.bind(mainMod .. " + Return", hl.dsp.exec_cmd(programs.terminal))
+hl.bind(mainMod .. " + S", hl.dsp.exec_cmd(programs.fileSearch))
+hl.bind(mainMod .. " + Super_L", hl.dsp.exec_cmd(programs.launcher))
+hl.bind(mainMod .. " + W", hl.dsp.exec_cmd(programs.windowPicker))
+hl.bind(mainMod .. " + X", hl.dsp.exec_cmd(programs.powerMenu))
+hl.bind(mainMod .. " + period", hl.dsp.exec_cmd(programs.emojiPicker))
 
 -- Move focus with mainMod + arrow keys
 hl.bind(mainMod .. " + left", hl.dsp.focus({ direction = "left" }))
@@ -49,11 +49,12 @@ hl.bind(mainMod .. " + l", hl.dsp.focus({ direction = "right" }))
 hl.bind(mainMod .. " + k", hl.dsp.focus({ direction = "up" }))
 hl.bind(mainMod .. " + j", hl.dsp.focus({ direction = "down" }))
 
--- Switch workspaces with mainMod + [0-9]
--- Move active window to a workspace with mainMod + SHIFT + [0-9]
+-- Navigate workspace
 for i = 1, 10 do
   local key = i % 10 -- 10 maps to key 0
+  -- Switch workspaces with mainMod + [0-9]
   hl.bind(mainMod .. " + " .. key, hl.dsp.focus({ workspace = i }))
+  -- Move active window to a workspace with mainMod + SHIFT + [0-9]
   hl.bind(mainMod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = i }))
 end
 
@@ -80,22 +81,18 @@ hl.bind(mainMod .. "+ SHIFT + KP_Up", hl.dsp.window.move({ workspace = 8 }))
 hl.bind(mainMod .. "+ SHIFT + KP_Prior", hl.dsp.window.move({ workspace = 9 }))
 hl.bind(mainMod .. "+ SHIFT + KP_Insert", hl.dsp.window.move({ workspace = 10 }))
 
--- Move active window to a workspace with mainMod + SHIFT + [0-9]
-
-hl.bind(mainMod .. "+ period", hl.dsp.exec_cmd("rofi -modi emoji -show emoji"))
-
 -- Example special workspace (scratchpad)
 -- hl.bind(mainMod .. S, togglespecialworkspace, magic)
 -- hl.bind(mainMod .. "+ SHIFT + S, movetoworkspace, special:magic)
 
--- Scroll through existing workspaces with mainMod + scroll
+-- Switch through existing workspaces with mainMod + CTRL + Arrow keys
 hl.bind(mainMod .. "+ CTRL + right", hl.dsp.focus({ workspace = "e+1" }))
 hl.bind(mainMod .. "+ CTRL + left", hl.dsp.focus({ workspace = "e-1" }))
 
 -- Take a screenshot
-hl.bind("PRINT", hl.dsp.exec_cmd("hyprshot --freeze -m output"))
-hl.bind("+ SHIFT + PRINT", hl.dsp.exec_cmd("hyprshot --freeze -m window"))
-hl.bind(mainMod .. "+ SHIFT + S", hl.dsp.exec_cmd("hyprshot --freeze -m region --clipboard-only"))
+hl.bind(mainMod .. "+ SHIFT + S", hl.dsp.exec_cmd(programs.screenshotSelection))
+hl.bind("PRINT", hl.dsp.exec_cmd(programs.screenshotScreen))
+hl.bind("SHIFT + PRINT", hl.dsp.exec_cmd(programs.screenshotWindow))
 
 -- Move windows
 hl.bind(mainMod .. "+ mouse:272", hl.dsp.window.drag(), { mouse = true })
@@ -119,7 +116,7 @@ hl.bind(
   hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"),
   { locked = true, repeating = true }
 )
--- hl.bind("XF86AudioMicMute",     hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"),   { locked = true, repeating = true })
+
 hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%+"), { locked = true, repeating = true })
 hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%-"), { locked = true, repeating = true })
 
