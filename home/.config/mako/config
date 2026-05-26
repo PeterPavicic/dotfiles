@@ -30,6 +30,7 @@ output=""
 layer=overlay
 anchor=top-right
 icon-path=/usr/share/icons/breeze-dark/
+on-button-middle=dismiss
 
 [urgency=low]
 border-color=#1c1f26
