@@ -51,6 +51,11 @@ group-by=category
 width=400
 # height=100
 
+# accept on left-click, deny on right-click
+[app-name=blueman]
+on-button-left=invoke-action confirm
+on-button-right=invoke-action deny
+
 [app-name="NetworkManager Applet"]
 width=400
 # height=100
