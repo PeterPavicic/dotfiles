@@ -29,6 +29,7 @@ hl.bind(mainMod .. "+ M", hl.dsp.exit())
 hl.bind(mainMod .. "+ Q", hl.dsp.window.close())
 
 -- Programs
+hl.bind(mainMod .. " + C", hl.dsp.exec_cmd(programs.calculator))
 hl.bind(mainMod .. " + I", hl.dsp.exec_cmd(programs.WiFiPicker))
 hl.bind(mainMod .. " + KP_Enter", hl.dsp.exec_cmd(programs.terminal))
 hl.bind(mainMod .. " + Return", hl.dsp.exec_cmd(programs.terminal))

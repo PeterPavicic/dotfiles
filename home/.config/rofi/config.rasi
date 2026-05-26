@@ -1,5 +1,5 @@
 configuration {
-  modes: "drun,recursivebrowser,window,run,";
+  modes: "drun,recursivebrowser,window,run,calc,";
   font: "mono 12";
   cache-dir: "/home/peter/.cache/rofi";
   drun-use-desktop-cache: true;
