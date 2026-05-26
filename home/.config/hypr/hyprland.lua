@@ -16,6 +16,9 @@ require("lua.variables")
 -- LAYOUT
 require("lua.layout")
 
+-- WINDOW RULES
+require("lua.window-rules")
+
 -- INPUT
 require("lua.input")
 
