@@ -1,0 +1,10 @@
+[Trigger]
+Operation = Install
+Operation = Remove
+Type = Package
+Target = *
+
+[Action]
+Description = Rebuilding rofi drun cache...
+When = PostTransaction
+Exec = /usr/bin/rofi -drun-reload-desktop-cache

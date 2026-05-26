@@ -2,6 +2,8 @@ configuration {
   modes: "drun,recursivebrowser,window,run,";
   font: "mono 12";
   cache-dir: "/home/peter/.cache/rofi";
+  drun-use-desktop-cache: true;
+  drun-reload-desktop-cache: false;
   /*	location: 0;*/
   /*	yoffset: 0;*/
   /*	xoffset: 0;*/
@@ -16,8 +18,6 @@ configuration {
   /*	on-screenshot-taken: ;*/
   /*	terminal: "rofi-sensible-terminal";*/
   /*	ssh-client: "ssh";*/
-  /*	ssh-command: "{terminal} -e {ssh-client} {host} [-p {port}]";*/
-  /*	run-command: "{cmd}";*/
   /*	run-list-command: "";*/
   /*	run-shell-command: "{terminal} -e {cmd}";*/
   /*	window-command: "wmctrl -i -R {window}";*/
@@ -58,8 +58,6 @@ configuration {
   /*	combi-display-format: "{mode} {text}";*/
   /*	matching-negate-char: '-' /* unsupported */;*/
   /*	window-thumbnail: false;*/
-  /*	drun-use-desktop-cache: false;*/
-  /*	drun-reload-desktop-cache: false;*/
   /*	normalize-match: false;*/
   /*	steal-focus: false;*/
   /*	application-fallback-icon: ;*/
@@ -163,7 +161,7 @@ configuration {
   }
   filebrowser {
     directories-first: true;
-    sorting-method:    "name";
+    sorting-method: "name";
   }
 }
 
