@@ -37,20 +37,22 @@
 #bluetooth,
 #cpu,
 #memory,
-#custom-lock,
-#idle_inhibitor {
+#idle_inhibitor,
+#custom-lock {
   /* uncomment to debug */
   /* background-color: #aaaa23;  */
   padding: 0rem 0.4rem;
   margin: 0px 3px;
   border-radius: 5px;
   color: #c6d0f5;
+  background: transparent;
 }
 
 #custom-power {
   padding: 0rem 0.3rem;
   margin: 0px 3px;
   color: #ea999c;
+  background: transparent;
 }
 
 #power-profiles-daemon,
