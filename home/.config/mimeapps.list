@@ -66,6 +66,7 @@ text/csv=nvim.desktop;
 text/csv-schema=nvim.desktop;
 text/markdown=nvim.desktop;
 text/plain=nvim.desktop;
+text/html=firefox.desktop;
 text/x-cmake=nvim.desktop;
 text/x-r-doc=nvim.desktop;
 text/x-r-history=nvim.desktop;
