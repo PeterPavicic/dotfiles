@@ -22,9 +22,6 @@ hl.config({
 
     -- Please see https://wiki.hyprland.org/Configuring/Tearing/ before you turn this on
     allow_tearing = false,
-
-    -- TODO: Switch layout type and configure
-    layout = "dwindle",
   },
 
   -- https://wiki.hyprland.org/Configuring/Variables/#decoration

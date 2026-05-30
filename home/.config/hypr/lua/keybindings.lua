@@ -21,8 +21,9 @@ hl.bind(mainMod .. "+ SHIFT + F", hl.dsp.window.fullscreen())
 
 -- Floating screen
 hl.bind(mainMod .. "+ F", hl.dsp.window.float({ action = "toggle" }))
--- hl.bind(mainMod .. "+ T", layoutmsg, togglesplit -- dwindle)
--- hl.bind(mainMod .. "+ SHIFT + T, layoutmsg, swapsplit -- dwindle)
+
+hl.bind(mainMod .. "+ T", hl.dsp.layout("swapwithmaster"))
+hl.bind(mainMod .. "+ SHIFT + T", hl.dsp.layout("orientationcycle"))
 
 -- Enter/Exit
 hl.bind(mainMod .. "+ M", hl.dsp.exit())
