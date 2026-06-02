@@ -1,0 +1,119 @@
+# WARNING: FULLY VIBECODED
+# =============================================================================
+# zathurarc — Tokyo Night / Neovim-oriented
+# =============================================================================
+# Drop at: ~/.config/zathura/zathurarc
+
+# ---------------------------------------------------------------------------
+# General
+# ---------------------------------------------------------------------------
+set window-title-basename   true
+set window-title-page       true
+set pages-per-row           1
+set page-padding            4
+set scroll-step             80
+set scroll-full-overlap     0.01
+set scroll-page-aware       true
+set zoom-min                10
+set zoom-step               10
+set adjust-open             "width"
+set statusbar-home-tilde    true
+set incremental-search      true
+set abort-clear-search      true
+set guioptions              "s"
+set font                    "FiraCode Nerd Font 10"
+
+# ---------------------------------------------------------------------------
+# Selection / clipboard
+#
+# primary   → mouse-drag highlights text into the Wayland *primary* selection
+#             only (middle-click paste).  The system clipboard is untouched.
+#             This is your "highlight without copying" mode.
+#
+# y         → explicitly promotes the current primary selection into the
+#             clipboard via wl-clipboard.  This is your "highlight then copy"
+#             action: drag to select, press y.
+# ---------------------------------------------------------------------------
+set selection-clipboard primary
+
+# ---------------------------------------------------------------------------
+# Recolouring  (toggle with r)
+# Inverts to dark-on-light background using the same palette key as below,
+# so PDFs that ship with a white background get Tokyo Night colours instead.
+# ---------------------------------------------------------------------------
+set recolor             false
+set recolor-keephue     true
+set recolor-lightcolor  "#1a1b26"
+set recolor-darkcolor   "#c0caf5"
+
+# ---------------------------------------------------------------------------
+# Tokyo Night — night palette
+# ---------------------------------------------------------------------------
+set default-bg                  "#1a1b26"
+set default-fg                  "#c0caf5"
+
+set statusbar-bg                "#16161e"
+set statusbar-fg                "#a9b1d6"
+
+set inputbar-bg                 "#16161e"
+set inputbar-fg                 "#c0caf5"
+
+set notification-bg             "#1a1b26"
+set notification-fg             "#c0caf5"
+set notification-error-bg       "#1a1b26"
+set notification-error-fg       "#f7768e"
+set notification-warning-bg     "#1a1b26"
+set notification-warning-fg     "#e0af68"
+
+# Search highlights — amber / orange, semi-transparent so text shows through
+set highlight-color             "#e0af6866"
+set highlight-active-color      "#ff9e6499"
+
+set completion-bg               "#16161e"
+set completion-fg               "#c0caf5"
+set completion-highlight-bg     "#292e42"
+set completion-highlight-fg     "#7aa2f7"
+
+set index-bg                    "#1a1b26"
+set index-fg                    "#c0caf5"
+set index-active-bg             "#292e42"
+set index-active-fg             "#7aa2f7"
+
+# ---------------------------------------------------------------------------
+# Keybindings — Neovim-style
+# Defaults already cover: /, ?, n, N (search); gg, G (first/last page);
+# +/- (zoom); ZZ (quit).  Only overrides and additions are listed here.
+# ---------------------------------------------------------------------------
+
+# Scrolling
+map j     scroll down
+map k     scroll up
+map h     scroll left
+map l     scroll right
+map <C-d> scroll half-down
+map <C-u> scroll half-up
+map <C-f> scroll full-down
+map <C-b> scroll full-up
+
+# Page navigation (capital J/K — less commonly used so won't conflict)
+map J  navigate next
+map K  navigate previous
+
+# Jumplist (mirrors <C-o>/<C-i> in Neovim)
+map <C-o>  jumplist backward
+map <C-i>  jumplist forward
+
+# Zoom
+map +  zoom in
+map -  zoom out
+map =  adjust_window best-fit
+map w  adjust_window width
+
+# Misc
+map r      recolor
+map R      reload
+map <Tab>  toggle_index
+
+# Clipboard — promote Wayland primary selection → clipboard
+# Requires wl-clipboard (pacman -S wl-clipboard).
+map y  exec "sh -c 'wl-paste --primary | wl-copy'"
