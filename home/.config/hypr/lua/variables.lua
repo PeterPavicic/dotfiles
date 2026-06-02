@@ -64,4 +64,60 @@ hl.config({
   animations = {
     enabled = false,
   },
+
+  -- https://wiki.hypr.land/Configuring/Basics/Variables/#group
+  group = {
+    -- Behaviour
+    auto_group = true,
+    insert_after_current = true,
+    focus_removed_window = true,
+    drag_into_group = 1, -- 0 off / 1 anywhere / 2 only via groupbar
+
+    -- Group border colours (each individual window while grouped)
+    col = {
+      -- Active group matches normal active window
+      border_active = { colors = { "rgba(33ccffee)", "rgba(00ff99ee)" }, angle = 45 },
+      border_inactive = { colors = { "rgba(595959aa)" } },
+    },
+
+    groupbar = {
+      enabled = true,
+      render_titles = true,
+      scrolling = false, -- scrolling over the bar to cycle active window
+
+      -- Font
+      font_family = "Sans",
+      font_size = 12,
+      font_weight_active = "semibold",
+      font_weight_inactive = "normal",
+
+      -- Geometry (mirrors decoration.rounding / rounding_power = 5 / 3)
+      height = 22,
+      indicator_height = 0,
+      indicator_gap = 0,
+      text_padding = 6,
+      -- don't really matter because indicator height is 0
+      rounding = 5,
+      rounding_power = 3,
+      round_only_edges = false,
+      -- these do matter
+      gradient_rounding = 7,
+      gradient_rounding_power = 2,
+      gradient_round_only_edges = false,
+
+      gradients = true,
+      blur = false,
+
+      -- Tab background colours
+      col = {
+        -- just cyan for active window
+        active = { colors = { "rgba(33ccffee)" } },
+        inactive = { colors = { "rgba(59595980)" } },
+      },
+
+      -- Title colours: dark text on the bright active tab, light on the dark inactive tab.
+      text_color = "rgba(11111bff)",
+      text_color_inactive = "rgba(cdd6f4ff)",
+    },
+  },
 })
