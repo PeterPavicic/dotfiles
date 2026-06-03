@@ -1,4 +1,5 @@
 -- Floating utility windows
+-- multiple times: first just force float, then resize and move
 
 -- Volume
 hl.window_rule({
@@ -26,14 +27,90 @@ hl.window_rule({
   center = true,
 })
 
--- WARNING: Vibecode below
---
--- ── xdg-desktop-portal-gtk file dialogs ────────────────────────────
--- All three (open / save / upload) share the same class; only the
--- title differs, and the title is set by the *calling* app, so the
--- patterns below are best-effort. They're named rules so you can
--- toggle one at runtime:
---   hyprctl keyword 'windowrule[portal-gtk-open]:enable false'
+-- App - workspace combination rules
+hl.window_rule({
+  match = {
+    class = "com.mitchellh.ghostty",
+  },
+  workspace = 1,
+})
+
+hl.window_rule({
+  match = {
+    class = "firefox",
+  },
+  workspace = 2,
+})
+
+hl.window_rule({
+  match = {
+    class = "chromium",
+  },
+  workspace = 3,
+})
+
+hl.window_rule({
+  match = {
+    class = "org.pwmt.zathura",
+  },
+  -- no_initial_focus = true,
+  workspace = 4,
+})
+
+hl.window_rule({
+  match = {
+    class = "thunar",
+  },
+  -- no_initial_focus = true,
+  workspace = 5,
+})
+
+hl.window_rule({
+  match = {
+    class = "gimp",
+  },
+  -- no_initial_focus = true,
+  workspace = 6,
+})
+
+hl.window_rule({
+  match = {
+    class = "vlc",
+  },
+  workspace = 7,
+})
+
+-- FIX: Chromium windows
+hl.window_rule({
+  match = {
+    class = [[^chrome]],
+    initial_title = "YouTube Music",
+  },
+  workspace = 8,
+})
+
+-- FIX: Chromium windows
+hl.window_rule({
+  match = {
+    class = [[^chrome-]],
+    initial_title = [[^Whatsapp Web]],
+  },
+  workspace = 9,
+})
+
+-- xdg-desktop-portal-gtk file dialogs ────────────────────────────
+
+-- FIX: Thunar rename
+hl.window_rule({
+  name = "thunar-rename",
+  match = {
+    class = [[^thunar$]],
+    initial_title = [[^Rename]],
+  },
+  float = true,
+  size = { "monitor_w * 0.55", "monitor_h * 0.6" },
+  center = true,
+})
 
 hl.window_rule({
   name = "portal-gtk-open",
