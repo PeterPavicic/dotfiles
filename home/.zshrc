@@ -126,14 +126,25 @@ stty stop undef
 ######## Aliases ######## 
 source $HOME/.zsh_aliases
 
-######## Plugins (source AFTER everything else) ######## 
-source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+######## Plugins ######## 
+_load_zsh_plugin() {
+  local name=$1 f
+  for f in \
+    /usr/share/zsh/plugins/$name/$name.zsh \
+    /usr/share/$name/$name.zsh \
+    "$HOME/.config/zsh/plugins/$name/$name.zsh"
+  do
+    [[ -r $f ]] && { source "$f"; return 0; }
+  done
+  return 1
+}
+
+_load_zsh_plugin zsh-autosuggestions
 
 # zoxide
 eval "$(zoxide init --cmd cd zsh)"
 # don't use zoxide in non-interactive sessions
-[[ -z $PS1 ]] && export _ZO_DOCTOR=0
+[[ -n $CLAUDECODE ]] && export _ZO_DOCTOR=0
 
 ######## Local overrides######## 
 [[ -f "$HOME/.localzshrc" ]] && source "$HOME/.localzshrc"
@@ -150,3 +161,6 @@ function zle-keymap-select zle-line-init {
 zle -N zle-keymap-select
 zle -N zle-line-init
 echo -ne '\e[6 q'  # default to beam on startup
+
+# zsh syntax highlighting MUST be last
+_load_zsh_plugin zsh-syntax-highlighting
