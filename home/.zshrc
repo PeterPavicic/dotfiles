@@ -141,13 +141,11 @@ _load_zsh_plugin() {
 
 _load_zsh_plugin zsh-autosuggestions
 
-# zoxide
-eval "$(zoxide init --cmd cd zsh)"
-# don't use zoxide in non-interactive sessions
-[[ -n $CLAUDECODE ]] && export _ZO_DOCTOR=0
+# Search path for cd builtin (similar to regular PATH), POSIX compliant
+CDPATH=.:$HOME/projects:$HOME/.config
 
-######## Local overrides######## 
-[[ -f "$HOME/.localzshrc" ]] && source "$HOME/.localzshrc"
+######## Local overrides ######## 
+[[ -f "$HOME/.zshrc.local" ]] && source "$HOME/.zshrc.local"
 
 ######## Match cursor to mode (normal/insert) ########
 function zle-keymap-select zle-line-init {
