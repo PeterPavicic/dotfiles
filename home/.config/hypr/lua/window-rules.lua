@@ -80,20 +80,16 @@ hl.window_rule({
   workspace = 7,
 })
 
--- FIX: Chromium windows
 hl.window_rule({
   match = {
-    class = [[^chrome]],
     initial_title = "YouTube Music",
   },
   workspace = 8,
 })
 
--- FIX: Chromium windows
 hl.window_rule({
   match = {
-    class = [[^chrome-]],
-    initial_title = [[^Whatsapp Web]],
+    initial_title = [[^WhatsApp Web]],
   },
   workspace = 9,
 })
