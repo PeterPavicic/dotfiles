@@ -127,11 +127,14 @@ stty stop undef
 source $HOME/.zsh_aliases
 
 ######## Plugins ######## 
+# load plugin using first installation found
 _load_zsh_plugin() {
   local name=$1 f
   for f in \
     /usr/share/zsh/plugins/$name/$name.zsh \
     /usr/share/$name/$name.zsh \
+    $PREFIX/share/zsh/plugins/$name/$name.zsh \
+    $PREFIX/share/$name/$name.zsh \
     "$HOME/.config/zsh/plugins/$name/$name.zsh"
   do
     [[ -r $f ]] && { source "$f"; return 0; }
