@@ -1,5 +1,4 @@
 -- Floating utility windows
--- multiple times: first just force float, then resize and move
 
 -- Volume
 hl.window_rule({
@@ -59,14 +58,6 @@ hl.window_rule({
 
 hl.window_rule({
   match = {
-    class = "thunar",
-  },
-  -- no_initial_focus = true,
-  workspace = 5,
-})
-
-hl.window_rule({
-  match = {
     class = "gimp",
   },
   -- no_initial_focus = true,
@@ -89,22 +80,21 @@ hl.window_rule({
 
 hl.window_rule({
   match = {
-    initial_title = [[^WhatsApp Web]],
+    initial_title = "WhatsApp Web",
   },
   workspace = 9,
 })
 
 -- xdg-desktop-portal-gtk file dialogs ────────────────────────────
 
--- FIX: Thunar rename
 hl.window_rule({
-  name = "thunar-rename",
+  -- name = "thunar-rename",
   match = {
-    class = [[^thunar$]],
-    initial_title = [[^Rename]],
+    class = "thunar",
+    initial_title = [[^Rename .*]],
   },
   float = true,
-  size = { "monitor_w * 0.55", "monitor_h * 0.6" },
+  size = { "monitor_w * 0.3", "monitor_h * 0.2" },
   center = true,
 })
 
