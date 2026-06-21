@@ -10,7 +10,7 @@ sudo pacman -S ghostty neovim luajit luarocks tmux --needed
 sudo pacman -S ttf-firacode-nerd noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts-extra --needed
 
 # essentials
-sudo pacman -S tar curl which htop openssh rsync git base-devel networkmanager fzf --needed
+sudo pacman -S man tar curl which htop openssh rsync git base-devel networkmanager fzf --needed
 
 # nicer essentials
 sudo pacman -S bat lsd btop fd ripgrep zsh --needed
