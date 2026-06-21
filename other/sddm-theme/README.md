@@ -1,38 +1,23 @@
 # Where is my SDDM theme?
 
-*:eyes: That feeling when your SDDM theme suddenly disappeared...*
+## Source
 
-The *most minimalistic* and *highly customizable* SDDM theme. Only black screen and password input field. Nothing extra, right? Even when you enter wrong password theme will show only red border around your screen. To login, just type your password and press `<Enter>` key.
+[original GitHub repo](https://github.com/stepanzubkov/where-is-my-sddm-theme.git)
 
-# Examples of customization
+> The *most minimalistic* and *highly customizable* SDDM theme.
+> Only black screen and password input field.
+> Nothing extra, right?
+> Even when you enter wrong password theme will show only red border around your screen.
+> To login, just type your password and press `<Enter>` key.
 
-To install one of these configs, run inside theme directory:
+## Installation
 
-```shell
-cp <path to config>/theme.conf
-```
+1. Copy [theme-name] folder to /usr/share/sddm/themes (`sudo cp -r [theme-name] /usr/share/sddm/themes`)
+2. Open /etc/sddm.conf.d/[any new file name].conf
+3. Change line `Current=...` to `Current=[theme-name]` under `[Theme]` header
+4. Make sure this doesn't conflict with `/etc/sddm.conf` file or any other file in `/etc/sddm.conf.d/` directory
 
-If config based on image background, also copy image. For example:
-
-```shell
-cp example_configurations/tree.conf theme.conf
-cp example_configurations/tree.png tree.png
-```
-
-| | |
-| --- |--- |
-| Classic (`where_is_my_sddm_theme/theme.conf`) | Classic, no cursor (`where_is_my_sddm_theme/example_configurations/classic_nocursor.conf`) |
-| ![screenshot](./where_is_my_sddm_theme/screenshot.png) | ![screenshot](./screenshots/classic_nocursor.png) |
-| Grey (`where_is_my_sddm_theme/example_configurations/grey.conf`) | Light grey (`where_is_my_sddm_theme/example_configurations/lightgrey.conf`) |
-| ![screenshot](./screenshots/grey.png) | ![screenshot](./screenshots/lightgrey.png) |
-| Blue (`where_is_my_sddm_theme/example_configurations/blue.conf`) |  Tree (`where_is_my_sddm_theme/example_configurations/tree.conf`) |
-| ![screenshot](./screenshots/blue.png) | ![screenshot](./screenshots/tree.png) |
-| Catppuccin (`https://github.com/catppuccin/where-is-my-sddm-theme`) | Rose-Pine Moon (`where_is_my_sddm_theme/example_configurations/rose-pine-moon.conf`) |
-| ![screenshot](./screenshots/catppuccin-mocha.webp) | ![screenshot](./screenshots/rose-pine-moon.png) |
-| Nord (`where_is_my_sddm_theme/example_configurations/nord.conf`) | |
-| ![screenshot](./screenshots/nord.png) | |
-
-# Keymaps
+## Keymaps
 
 `F2` or `Alt+u` - cycle select next user
 
@@ -50,16 +35,36 @@ cp example_configurations/tree.png tree.png
 
 `F1` - Show help message.
 
-# Installation
 
-## From source
+## Examples of customization
 
-1. Copy [theme-name] folder to /usr/share/sddm/themes (`sudo cp -r [theme-name] /usr/share/sddm/themes`)
-2. Open /etc/sddm.conf.d/[any new file name].conf
-3. Change line `Current=...` to `Current=[theme-name]` under `[Theme]` header
-4. Make sure this doesn't conflict with `/etc/sddm.conf` file or any other file in `/etc/sddm.conf.d/` directory
+To install one of these configs, run inside theme directory:
 
-# Configuration
+```sh
+cp <path to config>/theme.conf
+```
+
+If config based on image background, also copy image. For example:
+
+```sh
+cp example_configurations/tree.conf theme.conf
+cp example_configurations/tree.png tree.png
+```
+
+| | |
+| --- |--- |
+| Classic (`where_is_my_sddm_theme/theme.conf`) | Classic, no cursor (`where_is_my_sddm_theme/example_configurations/classic_nocursor.conf`) |
+| ![screenshot](./where_is_my_sddm_theme/screenshot.png) | ![screenshot](./screenshots/classic_nocursor.png) |
+| Grey (`where_is_my_sddm_theme/example_configurations/grey.conf`) | Light grey (`where_is_my_sddm_theme/example_configurations/lightgrey.conf`) |
+| ![screenshot](./screenshots/grey.png) | ![screenshot](./screenshots/lightgrey.png) |
+| Blue (`where_is_my_sddm_theme/example_configurations/blue.conf`) |  Tree (`where_is_my_sddm_theme/example_configurations/tree.conf`) |
+| ![screenshot](./screenshots/blue.png) | ![screenshot](./screenshots/tree.png) |
+| Catppuccin (`https://github.com/catppuccin/where-is-my-sddm-theme`) | Rose-Pine Moon (`where_is_my_sddm_theme/example_configurations/rose-pine-moon.conf`) |
+| ![screenshot](./screenshots/catppuccin-mocha.webp) | ![screenshot](./screenshots/rose-pine-moon.png) |
+| Nord (`where_is_my_sddm_theme/example_configurations/nord.conf`) | |
+| ![screenshot](./screenshots/nord.png) | |
+
+## Configuration
 
 In `theme.conf` file you can find theme configuration.
 
