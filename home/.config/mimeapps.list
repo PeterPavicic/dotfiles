@@ -55,6 +55,7 @@ x-scheme-handler/https=firefox.desktop;
 image/jpeg=org.gnome.Loupe.desktop;
 image/webp=org.gnome.Loupe.desktop;
 image/png=firefox.desktop;org.gnome.Loupe.desktop;
+application/x-shellscript=nvim.desktop;
 
 [Default Applications]
 application/json=nvim.desktop;
