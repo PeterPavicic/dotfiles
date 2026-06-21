@@ -122,8 +122,8 @@ systemctl --user enable --now hyprpolkitagent.service
 
 # gtk theme
 gsettings set org.gnome.desktop.interface gtk-theme 'Breeze-Dark'
-gsettings set org.gnome.desktop.interface icon-theme 'breeze-dark'
-gsettings set org.gnome.desktop.interface cursor-theme 'breeze_cursors'
+gsettings set org.gnome.desktop.interface icon-theme 'Adwaita'
+gsettings set org.gnome.desktop.interface cursor-theme 'breeze-dark'
 gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
 
 echo "It is recommended to reboot now if installing for the first time"
