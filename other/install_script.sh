@@ -37,7 +37,7 @@ sudo pacman -S pipewire wireplumber pipewire-pulse pipewire-alsa --needed
 sudo pacman -S ntfs-3g ntfsprogs gvfs-mtp ffmpegthumbnailer --needed
 
 # cli utities
-sudo pacman -S pdfgrep pandoc --needed
+sudo pacman -S pacman-contrib pdfgrep pandoc --needed
 
 # programming
 sudo pacman -S python r rust cargo --needed
