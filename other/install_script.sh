@@ -19,7 +19,7 @@ sudo pacman -S bat lsd btop fd ripgrep zsh --needed
 sudo pacman -S zsh-syntax-highlighting zsh-autosuggestions --needed
 
 # hyprland
-sudo pacman -S hyprland hyprpolkitagent hypridle hyprlock hyprpaper hyprpicker hyprshot hyprshutdown --needed
+sudo pacman -S hyprland hyprpolkitagent hypridle hyprlock hyprpaper hyprpicker hyprshot hyprshutdown xdg-desktop-portal-hyprland --needed
 
 # hyprland programs
 sudo pacman -S waybar blueman pavucontrol mako rofi rofi-calc rofi-emoji --needed
