@@ -41,10 +41,29 @@
   },
   "clock": {
     "timezone": "Europe/Vienna",
-    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+    "tooltip-format": "<big><b>{: ^56%Y}</b></big>\n<tt><small>{calendar}</small></tt>",
     "format": "{:%Y. %m. %d. - %H:%M}",
     "format-alt": "{:%B %d - %H:%M:%S}",
-    "interval": 1
+    "interval": 1,
+    "calendar": {
+      "mode": "year",
+      "mode-mon-col": 3,
+      "weeks-pos": "right",
+      "on-scroll": 1,
+      "iso8601": true,
+      "format": {
+        "months": "<span color='#ffead3'><b>{}</b></span>",
+        "days": "<span color='#ffffff'><b>{}</b></span>",
+        "weeks": "<span color='#99ffdd'><b>w{}</b></span>",
+        "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
+        "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
+      }
+    },
+    "actions": {
+      "on-click-right": "mode",
+      "on-scroll-up": "shift_up",
+      "on-scroll-down": "shift_down"
+    }
   },
   "pulseaudio": {
     "scroll-step": 1,
