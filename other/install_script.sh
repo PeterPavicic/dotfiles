@@ -46,7 +46,7 @@ sudo pacman -S python r rust cargo --needed
 sudo pacman -S breeze-gtk breeze-cursors breeze-icons nwg-look --needed
 
 # programs
-sudo pacman -S zathura zathura-pdf-mupdf firefox chromium thunar firewalld firewall-config --needed
+sudo pacman -S zathura zathura-pdf-mupdf firefox chromium thunar firewalld firewall-config --needed loupe libreoffice-fresh
 
 # set up temporary ssh-key
 if [ ! -e "$HOME/.ssh/id_ed25519" ]; then
