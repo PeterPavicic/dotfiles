@@ -37,10 +37,10 @@ sudo pacman -S pipewire wireplumber pipewire-pulse pipewire-alsa --needed
 sudo pacman -S ntfs-3g ntfsprogs gvfs-mtp ffmpegthumbnailer --needed
 
 # cli utities
-sudo pacman -S pacman-contrib pdfgrep pandoc --needed
+sudo pacman -S pacman-contrib pdfgrep pandoc tealdeer wev fx jq --needed
 
 # programming
-sudo pacman -S python r rust cargo --needed
+sudo pacman -S python r rust cargo uv --needed
 
 # theme
 sudo pacman -S breeze-gtk breeze-cursors breeze-icons nwg-look --needed
