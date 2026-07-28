@@ -28,7 +28,7 @@ sudo pacman -S waybar blueman pavucontrol mako rofi rofi-calc rofi-emoji --neede
 sudo pacman -S tree-sitter tree-sitter-cli fd ripgrep npm --needed
 
 # utilities
-sudo pacman -S less tailscale fastfetch wl-clipboard cliphist reflector power-profiles-daemon --needed
+sudo pacman -S less tailscale fastfetch wl-clipboard cliphist reflector power-profiles-daemon bluez-obex --needed
 
 # audio
 sudo pacman -S pipewire wireplumber pipewire-pulse pipewire-alsa --needed
@@ -37,7 +37,7 @@ sudo pacman -S pipewire wireplumber pipewire-pulse pipewire-alsa --needed
 sudo pacman -S ntfs-3g ntfsprogs gvfs-mtp ffmpegthumbnailer --needed
 
 # cli utities
-sudo pacman -S pacman-contrib pdfgrep pandoc tealdeer wev fx jq --needed
+sudo pacman -S pacman-contrib pdfgrep pandoc tealdeer wev fx jq xh --needed
 
 # programming
 sudo pacman -S python r rust cargo uv --needed
@@ -47,6 +47,9 @@ sudo pacman -S breeze-gtk breeze-cursors breeze-icons nwg-look --needed
 
 # programs
 sudo pacman -S zathura zathura-pdf-mupdf firefox chromium thunar firewalld firewall-config --needed loupe libreoffice-fresh
+
+# docker
+sudo pacman -S podman podman-compose podman-docker buildah skopeo 
 
 # set up temporary ssh-key
 if [ ! -e "$HOME/.ssh/id_ed25519" ]; then
@@ -119,6 +122,7 @@ systemctl --user enable --now wireplumber.service
 systemctl --user enable --now hyprpaper.service
 systemctl --user enable --now hypridle.service
 systemctl --user enable --now hyprpolkitagent.service
+systemctl --user enable --now obex.service
 
 # gtk theme
 gsettings set org.gnome.desktop.interface gtk-theme 'Breeze-Dark'
