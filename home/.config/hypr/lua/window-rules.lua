@@ -36,6 +36,13 @@ hl.window_rule({
 
 hl.window_rule({
   match = {
+    class = "kitty",
+  },
+  workspace = 1,
+})
+
+hl.window_rule({
+  match = {
     class = "firefox",
   },
   workspace = 2,
@@ -86,6 +93,16 @@ hl.window_rule({
 })
 
 -- xdg-desktop-portal-gtk file dialogs ────────────────────────────
+
+hl.window_rule({
+  -- name = "thunar-rename",
+  match = {
+    class = "firefox",
+    title = [[^Typst Preview.*]],
+  },
+  float = false,
+  workspace = 1,
+})
 
 hl.window_rule({
   -- name = "thunar-rename",

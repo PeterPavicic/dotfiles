@@ -4,7 +4,7 @@ set -exuo pipefail
 # TODO: Cleanup
 
 # terminal
-sudo pacman -S ghostty neovim luajit luarocks tmux --needed
+sudo pacman -S kitty neovim luajit luarocks tmux --needed
 
 # fonts
 sudo pacman -S ttf-firacode-nerd noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts-extra --needed
@@ -25,7 +25,7 @@ sudo pacman -S hyprland hyprpolkitagent hypridle hyprlock hyprpaper hyprpicker h
 sudo pacman -S waybar blueman pavucontrol mako rofi rofi-calc rofi-emoji --needed
 
 # neovim/tmux
-sudo pacman -S tree-sitter tree-sitter-cli fd ripgrep npm --needed
+sudo pacman -S tree-sitter tree-sitter-cli fd ripgrep npm imagemagick --needed
 
 # utilities
 sudo pacman -S less tailscale fastfetch wl-clipboard cliphist reflector power-profiles-daemon bluez-obex --needed

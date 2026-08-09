@@ -19,7 +19,7 @@ M.powerMenu = "pkill rofi || rofi -show power-menu -modi power-menu:$HOME/.confi
 M.screenshotScreen = "hyprshot --freeze -m output"
 M.screenshotSelection = "hyprshot --freeze -m region --clipboard-only"
 M.screenshotWindow = "hyprshot --freeze -m window"
-M.terminal = "uwsm app -- ghostty"
+M.terminal = "uwsm app -- kitty"
 M.windowPicker = "pkill rofi || rofi -show window"
 
 return M
