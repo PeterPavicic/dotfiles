@@ -106,6 +106,7 @@ sudo systemctl enable --now firewalld
 sudo systemctl enable --now tailscaled
 sudo systemctl enable --now sshd
 sudo systemctl enable --now power-profiles-daemon.service
+sudo systemctl enable --now reflector.service
 sudo systemctl enable --now reflector.timer
 
 sudo systemctl edit --stdin reflector.timer <<'EOF'
