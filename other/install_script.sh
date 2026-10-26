@@ -99,6 +99,10 @@ fi
 
 # enable system services
 
+# Initialise reflector config
+sudo cp "$HOME/dotfiles/other/etc/xdg/reflector/reflector.conf" "/etc/xdg/reflector/reflector.conf"
+
+# enable system services
 sudo systemctl enable --now bluetooth.service
 sudo systemctl enable --now NetworkManager.service
 sudo systemctl enable --now sddm.service
@@ -114,8 +118,6 @@ sudo systemctl edit --stdin reflector.timer <<'EOF'
 OnBootSec=5min
 RandomizedDelaySec=0
 EOF
-
-sudo cp "$HOME/dotfiles/other/etc/xdg/reflector/reflector.conf" "/etc/xdg/reflector/reflector.conf"
 
 # enable user services
 systemctl --user enable --now pipewire.service
