@@ -156,6 +156,12 @@ function zle-keymap-select zle-line-init {
   fi
 }
 
+# Switch to block cursor when entering claude code
+claude() {
+  echo -ne '\e[2 q' # block cursor for Claude Code
+  command claude "$@"
+}
+
 zle -N zle-keymap-select
 zle -N zle-line-init
 echo -ne '\e[6 q'  # default to beam on startup
