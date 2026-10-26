@@ -46,7 +46,7 @@ sudo pacman -S python r rust cargo uv --needed
 sudo pacman -S breeze-gtk breeze-cursors breeze-icons nwg-look --needed
 
 # programs
-sudo pacman -S zathura zathura-pdf-mupdf firefox chromium thunar firewalld firewall-config loupe libreoffice-fresh --needed 
+sudo pacman -S zathura zathura-pdf-mupdf firefox chromium thunar firewalld firewall-config loupe libreoffice-fresh qbittorrent --needed
 
 # docker
 sudo pacman -S podman podman-compose podman-docker buildah skopeo 

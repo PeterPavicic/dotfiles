@@ -56,6 +56,7 @@ image/jpeg=org.gnome.Loupe.desktop;
 image/webp=org.gnome.Loupe.desktop;
 image/png=gimp.desktop;firefox.desktop;org.gnome.Loupe.desktop;
 application/x-shellscript=nvim.desktop;
+application/x-bittorrent=org.qbittorrent.qBittorrent.desktop;
 
 [Default Applications]
 application/json=nvim.desktop;
