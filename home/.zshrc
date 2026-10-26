@@ -111,10 +111,17 @@ bindkey '^F' fzf-file-widget # additionally to Ctrl-T Ctrl-F also opens fzf-file
 # zle -N tetris
 # bindkey '^T' tetris
 
-# Ctrl-O to insert xdg-open
+# Ctrl-O to insert xdg-open, redirect stdout and stderr to `/dev/null`, background and disown
+xdg-open-widget() {
+  LBUFFER+='xdg-open '
+  RBUFFER=" &>/dev/null &!${RBUFFER}"
+}
+
 bindkey -r '^O'
-bindkey -s '^O' 'xdg-open '
-bindkey -M viins -s '^O' 'xdg-open '
+
+zle -N xdg-open-widget
+bindkey '^O' xdg-open-widget
+bindkey -M viins '^O' xdg-open-widget
 
 # autocomplete using typed text, cursor at the end
 bindkey '\e[A' history-beginning-search-backward-end
