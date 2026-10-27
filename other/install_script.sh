@@ -127,9 +127,6 @@ setup_nvim_python_host() {
 setup_nvim_python_host
 
 
-# Initialise reflector config
-sudo cp "$HOME/dotfiles/other/etc/xdg/reflector/reflector.conf" "/etc/xdg/reflector/reflector.conf"
-
 # enable system services
 sudo systemctl enable --now bluetooth.service
 sudo systemctl enable --now NetworkManager.service
@@ -138,14 +135,21 @@ sudo systemctl enable --now firewalld
 sudo systemctl enable --now tailscaled
 sudo systemctl enable --now sshd
 sudo systemctl enable --now power-profiles-daemon.service
-sudo systemctl enable --now reflector.service
-sudo systemctl enable --now reflector.timer
 
+
+# Initialise reflector config
+sudo cp "$HOME/dotfiles/other/etc/xdg/reflector/reflector.conf" "/etc/xdg/reflector/reflector.conf"
+# Run once
+sudo systemctl start reflector.service
+
+# reflector: run only via timer, 5min after boot, to avoid delays
 sudo systemctl edit --stdin reflector.timer <<'EOF'
 [Timer]
 OnBootSec=5min
 RandomizedDelaySec=0
 EOF
+sudo systemctl disable reflector.service
+sudo systemctl enable --now reflector.timer
 
 # enable user services
 systemctl --user enable --now pipewire.service
