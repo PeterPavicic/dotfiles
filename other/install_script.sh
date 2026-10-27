@@ -101,7 +101,31 @@ if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
 fi
 
 
-# enable system services
+# sets up neovim's python provider if it doesn't exist yet
+setup_nvim_python_host() {
+  nvim_venv="$HOME/.local/share/nvim/python-host"
+
+  if [ -x "$nvim_venv/bin/python" ]; then
+      echo "nvim python host already present at $nvim_venv, skipping"
+      return 0
+  fi
+
+  echo "Creating nvim python host at $nvim_venv"
+  mkdir -p "$(dirname "$nvim_venv")" || return 1
+
+  if uv venv --python python3 "$nvim_venv" &&
+     uv pip install -p "$nvim_venv" pynvim jupyter_client cairosvg pnglatex plotly kaleido pyperclip nbformat pillow
+  then
+      echo "nvim python host ready"
+  else
+      echo "nvim python host setup failed, removing partial venv" >&2
+      rm -rf "$nvim_venv"
+      return 1
+  fi
+}
+
+setup_nvim_python_host
+
 
 # Initialise reflector config
 sudo cp "$HOME/dotfiles/other/etc/xdg/reflector/reflector.conf" "/etc/xdg/reflector/reflector.conf"
