@@ -1,8 +1,6 @@
 #!/bin/sh
 set -exuo pipefail
 
-# TODO: Cleanup
-
 # terminal
 sudo pacman -S kitty neovim luajit luarocks tmux --needed
 
@@ -51,11 +49,19 @@ sudo pacman -S zathura zathura-pdf-mupdf firefox chromium thunar firewalld firew
 # docker
 sudo pacman -S podman podman-compose podman-docker buildah skopeo 
 
+POST_INSTALL_MSGS=""
+
+add_msg() {
+  POST_INSTALL_MSGS="${POST_INSTALL_MSGS}  - $1
+"
+}
+
 # set up temporary ssh-key
 if [ ! -e "$HOME/.ssh/id_ed25519" ]; then
   ssh-keygen -t ed25519 -C "temp_ssh_key" -f ~/.ssh/id_ed25519
   echo "Created ed25519 ssh key."
   cat ~/.ssh/id_ed25519.pub
+  add_msg "Configure ssh keys"
 fi
 
 # pull dotfiles
@@ -66,6 +72,7 @@ if [ ! -d "$HOME/dotfiles/" ]; then
 
   cd "$HOME/dotfiles/"
 
+  # Add post-merge hook to script which creates symlinks
   cat > .git/hooks/post-merge << 'EOF'
 #!/bin/sh
 "$(git rev-parse --show-toplevel)/create_symlinks.sh"
@@ -90,12 +97,9 @@ fi
 if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
   mkdir -p "$HOME/.tmux/plugins/tpm"
   git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-  # TODO: Edit so this is added to messages at the end of script
-  echo "Installed TPM. Open tmux and press C-b + I now"
+  add_msg "Installed TPM. Open tmux and press C-b + I now"
 fi
 
-# TODO: incorporate:
-# chsh -s "$(command -v zsh)"
 
 # enable system services
 
@@ -158,4 +162,16 @@ gsettings set org.gnome.desktop.interface icon-theme 'Adwaita'
 gsettings set org.gnome.desktop.interface cursor-theme 'Bibata-Modern-Classic-xcursor'
 gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
 
-echo "It is recommended to reboot now if installing for the first time"
+# check whether zsh is the login shell
+login_shell=$(getent passwd "$(id -un)" 2>/dev/null | cut -d: -f7)
+[ -n "$login_shell" ] || login_shell=$SHELL
+
+case "$login_shell" in
+  */zsh) ;;
+  *) add_msg 'Set zsh as your login shell: chsh -s "$(command -v zsh)"' ;;
+esac
+
+if [ -n "$POST_INSTALL_MSGS" ]; then
+    printf '\nManual steps remaining:\n%s' "$POST_INSTALL_MSGS"
+    echo "It is recommended to reboot now if installing for the first time"
+fi
