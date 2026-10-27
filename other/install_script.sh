@@ -111,7 +111,11 @@ setup_nvim_python_host() {
   fi
 
   echo "Creating nvim python host at $nvim_venv"
-  mkdir -p "$(dirname "$nvim_venv")" || return 1
+  mkdir -p "$(dirname "$nvim_venv")"
+
+  # If jupyter has never been run "properly", this won't exist
+  echo "Creating jupyter runtime path"
+  mkdir -p ~/.local/share/jupyter/runtime
 
   if uv venv --python python3 "$nvim_venv" &&
      uv pip install -p "$nvim_venv" pynvim jupyter_client cairosvg pnglatex plotly kaleido pyperclip nbformat pillow
