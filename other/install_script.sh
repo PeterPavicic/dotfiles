@@ -10,7 +10,7 @@ sudo pacman -S kitty neovim luajit luarocks tmux --needed
 sudo pacman -S ttf-firacode-nerd noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts-extra --needed
 
 # essentials
-sudo pacman -S man tar curl which htop openssh rsync git base-devel networkmanager fzf --needed
+sudo pacman -S man tar curl zip unzip which htop openssh rsync git base-devel networkmanager fzf --needed
 
 # nicer essentials
 sudo pacman -S bat lsd btop fd ripgrep zsh --needed
@@ -43,7 +43,7 @@ sudo pacman -S pacman-contrib pdfgrep pandoc tealdeer wev fx jq xh --needed
 sudo pacman -S python r rust cargo uv --needed
 
 # theme
-sudo pacman -S breeze-gtk breeze-cursors breeze-icons nwg-look --needed
+sudo pacman -S breeze-gtk breeze-icons nwg-look --needed
 
 # programs
 sudo pacman -S zathura zathura-pdf-mupdf firefox chromium thunar firewalld firewall-config loupe libreoffice-fresh qbittorrent --needed
@@ -127,10 +127,35 @@ systemctl --user enable --now hypridle.service
 systemctl --user enable --now hyprpolkitagent.service
 systemctl --user enable --now obex.service
 
+# cursors
+install_cursor_theme() {
+  theme=$1
+  icons_dir="$HOME/.local/share/icons"
+  archive="$HOME/dotfiles/other/$theme.tar.xz"
+  
+  if [ -d "$icons_dir/$theme" ]; then
+      echo "$theme already installed, skipping"
+      return 0
+  fi
+  
+  mkdir -p "$icons_dir" || return 1
+
+  if tar -xJf "$archive" -C "$icons_dir"; then
+      echo "Installed $theme"
+  else
+      echo "Extracting $theme failed, removing partial install" >&2
+      rm -rf "$icons_dir/$theme"
+      return 1
+  fi
+}
+
+install_cursor_theme Bibata-Modern-Classic-hyprcursor
+install_cursor_theme Bibata-Modern-Classic-xcursor
+
 # gtk theme
 gsettings set org.gnome.desktop.interface gtk-theme 'Breeze-Dark'
 gsettings set org.gnome.desktop.interface icon-theme 'Adwaita'
-gsettings set org.gnome.desktop.interface cursor-theme 'breeze-dark'
+gsettings set org.gnome.desktop.interface cursor-theme 'Bibata-Modern-Classic-xcursor'
 gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
 
 echo "It is recommended to reboot now if installing for the first time"
