@@ -47,7 +47,7 @@ sudo pacman -S breeze-gtk breeze-icons nwg-look --needed
 sudo pacman -S zathura zathura-pdf-mupdf firefox chromium thunar firewalld firewall-config loupe libreoffice-fresh qbittorrent --needed
 
 # docker
-sudo pacman -S podman podman-compose podman-docker buildah skopeo 
+sudo pacman -S podman podman-compose podman-docker buildah skopeo --needed
 
 POST_INSTALL_MSGS=""
 
