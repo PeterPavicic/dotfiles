@@ -2,7 +2,7 @@
 set -exuo pipefail
 
 # terminal
-sudo pacman -S kitty neovim luajit luarocks tmux --needed
+sudo pacman -S kitty neovim luajit tmux --needed
 
 # fonts
 sudo pacman -S ttf-firacode-nerd noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts-extra --needed
