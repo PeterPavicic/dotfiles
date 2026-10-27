@@ -1,8 +1,8 @@
-import QtQuick 2.15
-import QtQuick.Controls 2.0
-import SddmComponents 2.0
+import QtQuick
+import QtQuick.Controls
+import SddmComponents
 
-import Qt5Compat.GraphicalEffects
+import QtQuick.Effects
 
 Rectangle {
     id: root
@@ -179,7 +179,9 @@ Rectangle {
             id: background
             visible: true
             anchors.fill: parent
+            clip: true
             color: config.stringValue("backgroundFill") || "transparent"
+            property int blurRadius: config.intValue("blurRadius") || 0
             Image {
                 id: image
                 anchors.fill: parent
@@ -208,12 +210,16 @@ Rectangle {
                 }
             }
 
-            FastBlur {
+            MultiEffect {
                 id: fastBlur
                 z: 3
                 anchors.fill: image
                 source: image
-                radius: config.intValue("blurRadius")
+                // No padding: blur clamps to the image edges instead of fading to transparent
+                autoPaddingEnabled: false
+                blurEnabled: background.blurRadius > 0
+                blurMax: background.blurRadius
+                blur: 1.0
             }
 
         }
@@ -230,7 +236,7 @@ Rectangle {
                 verticalCenter: parent.verticalCenter
                 horizontalCenter: parent.horizontalCenter
             }
-            echoMode: config.boolValue("passwordMask") ? TextInput.Password : null
+            echoMode: config.boolValue("passwordMask") ? TextInput.Password : TextInput.Normal
             color: config.stringValue("passwordTextColor") || textColor
             selectionColor: textColor
             selectedTextColor: "#000000"
