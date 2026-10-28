@@ -4,14 +4,6 @@ export PATH="$HOME/.local/bin:$PATH:$HOME/go/bin"
 ######## Locale ######## 
 export LANG=en_US.UTF-8
 
-######## Editor ########
-if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='vim'
-else
-  export EDITOR='nvim'
-fi
-
-
 ######## History ########
 HISTFILE=$HOME/.zsh_history
 HISTSIZE=10000
