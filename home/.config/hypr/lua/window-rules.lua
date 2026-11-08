@@ -6,7 +6,6 @@ hl.window_rule({
   float = true,
   size = { "600", "360" },
   move = { "monitor_w - 602", "38" }, -- 2 = `gaps in`
-  center = false,
 })
 
 -- Bluetooth
@@ -15,7 +14,6 @@ hl.window_rule({
   float = true,
   size = { "560", "350" },
   move = { "monitor_w - 562", "38" },
-  center = false,
 })
 
 -- Network — nm-connection-editor
