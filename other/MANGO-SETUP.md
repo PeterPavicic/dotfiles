@@ -7,7 +7,7 @@ session on the SDDM login screen.
 ## Already prepared
 
 - `install_script.sh` hooks `hypridle`, `hyprpaper` and `hyprpolkitagent` into
-  `wayland-session@mango.desktop.target`, so they start only in Mango's uwsm
+  `wayland-session-xdg-autostart@mango.desktop.target`, so they start only in Mango's uwsm
   session (and in Hyprland's).
 - `cliphist.service` (`other/systemd/user/`) runs in every graphical session.
 - `~/.config/hypr/dpms.sh`, which hypridle uses to turn screens off and on, has a
@@ -41,7 +41,7 @@ EOF
 ```
 
 `uwsm start … mango.desktop` makes `mango.desktop` the session ID. That is where
-the `wayland-session@mango.desktop.target` name used by the install script
+the `wayland-session-xdg-autostart@mango.desktop.target` name used by the install script
 comes from.
 
 ## 3. Start a config inside the dotfiles
@@ -111,6 +111,6 @@ under uwsm, look there first.
 
 ```sh
 sudo rm /usr/local/share/wayland-sessions/mango-uwsm.desktop
-rm -r ~/.config/systemd/user/wayland-session@mango.desktop.target.wants
+rm -r ~/.config/systemd/user/wayland-session-xdg-autostart@mango.desktop.target.wants
 sudo pacman -Rns mangowm
 ```
