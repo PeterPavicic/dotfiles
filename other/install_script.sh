@@ -23,6 +23,7 @@ packages=(
   sddm
 
   # hyprland
+  # (to try Mango next to Hyprland, follow other/MANGO-SETUP.md after this script)
   uwsm hyprland hyprpolkitagent hypridle hyprlock hyprpaper hyprpicker hyprshot hyprshutdown xdg-desktop-portal-hyprland
 
   # hyprland programs
