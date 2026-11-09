@@ -1,7 +1,4 @@
-######## Path ########
-export PATH="$HOME/.local/bin:$PATH:$HOME/go/bin"
-
-######## Locale ######## 
+######## Locale ########
 export LANG=en_US.UTF-8
 
 ######## History ########
