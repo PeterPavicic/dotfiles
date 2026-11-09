@@ -1,11 +1,15 @@
+# Environment for every uwsm-managed session (Hyprland or any other compositor).
+# uwsm sources this with /bin/sh, so keep it POSIX (use `.`, not `source`).
+#
+# Load order (later wins):
+#   env                 -> this file, all compositors
+#   env.d/*             -> machine-local fragments, git-ignored (e.g. env.d/nvidia)
+#   env-hyprland        -> only when XDG_CURRENT_DESKTOP is Hyprland
+#   env-<desktop>       -> same for other compositors (lowercased DesktopNames)
+
+# Qt theming; only reads ~/.config/hypr/hyprqt6engine.conf, works under any compositor
 export QT_QPA_PLATFORMTHEME=hyprqt6engine
+
+# Classic cursor theme: used by apps, Xwayland and every non-Hyprland compositor
 export XCURSOR_THEME=Bibata-Modern-Classic-xcursor
 export XCURSOR_SIZE=24
-export HYPRCURSOR_THEME=Bibata-Modern-Classic-hyprcursor
-export HYPRCURSOR_SIZE=24
-
-NVIDIA_ENV="$HOME/.config/uwsm/nvidiaEnv"
-
-if [ -e "$NVIDIA_ENV" ]; then
-  source "$NVIDIA_ENV"
-fi

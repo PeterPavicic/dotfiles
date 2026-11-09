@@ -1,0 +1,6 @@
+# Only sourced for the Hyprland session (see header of ./env).
+
+# Hyprcursor theme: drawn by Hyprland itself; scales cleanly at fractional
+# scales. Apps that draw their own cursor still use XCURSOR_* from ./env.
+export HYPRCURSOR_THEME=Bibata-Modern-Classic-hyprcursor
+export HYPRCURSOR_SIZE=24

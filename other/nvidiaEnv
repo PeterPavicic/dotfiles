@@ -1,2 +1,11 @@
+# NVIDIA env for uwsm sessions. Enable on an NVIDIA machine with:
+#   mkdir -p ~/.config/uwsm/env.d
+#   ln -s ~/dotfiles/other/nvidiaEnv ~/.config/uwsm/env.d/nvidia
+#
+# Only for machines where the NVIDIA GPU drives the display.
+# Do NOT use on hybrid Intel/AMD + NVIDIA laptops: it pushes everything onto the dGPU.
+
+# Hardware video decoding through NVIDIA (needs the libva-nvidia-driver package)
 export LIBVA_DRIVER_NAME=nvidia
-export GLX_VENDOR_LIBRARY_NAME=nvidia
+# Make libglvnd load NVIDIA's GLX (the name needs the two leading underscores)
+export __GLX_VENDOR_LIBRARY_NAME=nvidia

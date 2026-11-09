@@ -1,1 +1,2 @@
-nvidia*
+# machine-local env fragments (e.g. env.d/nvidia -> ~/dotfiles/other/nvidiaEnv)
+env.d/
