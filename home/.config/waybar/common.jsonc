@@ -1,39 +1,9 @@
 {
+  // Shared by hyprland.jsonc and mango.jsonc (included by both).
+  // Bar layout and compositor-specific modules live in those files.
   "layer": "top",
   "position": "top",
   "height": 36,
-  "modules-left": ["hyprland/workspaces"],
-  "modules-center": ["clock"],
-  "modules-right": [
-    "pulseaudio",
-    "backlight",
-    "battery",
-    "power-profiles-daemon",
-    "network",
-    "hyprland/language",
-    "bluetooth",
-    "cpu",
-    "memory",
-    "idle_inhibitor",
-    "custom/lock",
-    "custom/power"
-  ],
-  "hyprland/workspaces": {
-    "format": "{name}: <big>{icon}</big>",
-    "on-click": "activate",
-    "format-icons": {
-      "1": "",
-      "2": "",
-      "3": "",
-      "4": "",
-      "5": "",
-      "6": "󰙏",
-      "7": "󰎁",
-      "8": "󰎆",
-      "9": "󰖣",
-      "default": ""
-    }
-  },
   "custom/power": {
     "format": "⏻ ",
     "tooltip": false,
@@ -114,10 +84,6 @@
     "tooltip": false,
     "on-click": "bash $HOME/.config/rofi/rofi-wifi-menu/rofi-wifi-menu.sh",
     "on-click-middle": "rfkill toggle wifi"
-  },
-  "hyprland/language": {
-    "format": "{short}",
-    "on-click": "$HOME/.config/hypr/switchLayout.sh"
   },
   "bluetooth": {
     "format": "",

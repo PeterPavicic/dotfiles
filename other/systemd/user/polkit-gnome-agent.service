@@ -1,0 +1,30 @@
+# Polkit authentication agent (polkit-gnome) for every uwsm-managed Wayland session
+# except Hyprland, which runs hyprpolkitagent (hooked into Hyprland's session only by
+# other/install_script.sh). hyprpolkitagent aborts under Mango, and polkit-gnome is a
+# plain GTK3 window, so it works on any compositor.
+#
+# Installed by other/install_script.sh with:
+#   systemctl --user enable ~/dotfiles/other/systemd/user/polkit-gnome-agent.service
+# `enable` with a path symlinks this file into ~/.config/systemd/user/, so after
+# editing it here, run `systemctl --user daemon-reload` and restart the service.
+#
+# Test: `pkexec true` should open a password dialog.
+
+[Unit]
+Description=Polkit authentication agent (polkit-gnome) for every compositor except Hyprland
+After=graphical-session.target
+PartOf=graphical-session.target
+
+[Service]
+Type=exec
+# Skip (not fail) under Hyprland: only one agent can register per session.
+# uwsm exports XDG_CURRENT_DESKTOP to the user manager; it is a colon-separated
+# list. `$$` passes a literal `$` to sh.
+ExecCondition=/bin/sh -c 'case ":$${XDG_CURRENT_DESKTOP}:" in *:Hyprland:*) exit 1 ;; esac'
+ExecStart=/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+Restart=on-failure
+Slice=session.slice
+TimeoutStopSec=5sec
+
+[Install]
+WantedBy=graphical-session.target
