@@ -1,130 +1,132 @@
-#!/bin/sh
-set -exuo pipefail
+#!/usr/bin/env bash
+set -euxo pipefail
 
-# terminal
-sudo pacman -S kitty neovim luajit tmux --needed
+dotfiles="$HOME/dotfiles"
 
-# fonts
-sudo pacman -S ttf-firacode-nerd noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts-extra --needed
+packages=(
+  # terminal
+  kitty neovim luajit tmux
 
-# essentials
-sudo pacman -S man tar curl zip unzip which htop openssh rsync git base-devel networkmanager fzf --needed
+  # fonts
+  ttf-firacode-nerd noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts-extra
 
-# nicer essentials
-sudo pacman -S bat lsd btop fd ripgrep zsh --needed
+  # essentials
+  man tar curl zip unzip which htop openssh rsync git base-devel networkmanager fzf
 
-# zsh setup
-sudo pacman -S zsh-syntax-highlighting zsh-autosuggestions --needed
+  # nicer essentials
+  bat lsd btop fd ripgrep zsh
 
-# hyprland
-sudo pacman -S uwsm hyprland hyprpolkitagent hypridle hyprlock hyprpaper hyprpicker hyprshot hyprshutdown xdg-desktop-portal-hyprland --needed
+  # zsh setup
+  zsh-syntax-highlighting zsh-autosuggestions
 
-# hyprland programs
-sudo pacman -S waybar blueman pavucontrol mako rofi rofi-calc rofi-emoji --needed
+  # display manager
+  sddm
 
-# neovim/tmux
-sudo pacman -S tree-sitter tree-sitter-cli fd ripgrep npm imagemagick --needed
+  # hyprland
+  uwsm hyprland hyprpolkitagent hypridle hyprlock hyprpaper hyprpicker hyprshot hyprshutdown xdg-desktop-portal-hyprland
 
-# utilities
-sudo pacman -S less tailscale fastfetch wl-clipboard cliphist reflector power-profiles-daemon bluez-obex strace --needed
+  # hyprland programs
+  waybar blueman pavucontrol mako rofi rofi-calc rofi-emoji
 
-# audio
-sudo pacman -S pipewire wireplumber pipewire-pulse pipewire-alsa --needed
+  # neovim/tmux
+  tree-sitter tree-sitter-cli fd ripgrep npm imagemagick
 
-# file management (thunar specific)
-sudo pacman -S ntfs-3g ntfsprogs gvfs-mtp ffmpegthumbnailer --needed
+  # utilities
+  less tailscale fastfetch wl-clipboard cliphist reflector power-profiles-daemon bluez-obex strace
 
-# cli utities
-sudo pacman -S pacman-contrib pdfgrep pandoc tealdeer wev fx jq xh --needed
+  # audio
+  pipewire wireplumber pipewire-pulse pipewire-alsa
 
-# programming
-sudo pacman -S python r rust cargo uv --needed
+  # file management (thunar specific)
+  ntfs-3g ntfsprogs gvfs-mtp ffmpegthumbnailer
 
-# theme
-sudo pacman -S breeze-gtk breeze-icons nwg-look --needed
+  # cli utities
+  pacman-contrib pdfgrep pandoc tealdeer wev fx jq xh
 
-# programs
-sudo pacman -S zathura zathura-pdf-mupdf firefox chromium thunar firewalld firewall-config loupe libreoffice-fresh qbittorrent --needed
+  # programming
+  python r rust cargo uv
 
-# docker
-sudo pacman -S podman podman-compose podman-docker buildah skopeo --needed
+  # theme
+  breeze-gtk breeze-icons nwg-look
 
-POST_INSTALL_MSGS=""
+  # programs
+  zathura zathura-pdf-mupdf firefox chromium thunar firewalld firewall-config loupe libreoffice-fresh qbittorrent
+
+  # docker
+  podman podman-compose podman-docker buildah skopeo
+)
+
+sudo pacman -S --needed "${packages[@]}"
+
+post_install_msgs=()
 
 add_msg() {
-  POST_INSTALL_MSGS="${POST_INSTALL_MSGS}  - $1
-"
+  post_install_msgs+=("$1")
 }
 
 # set up temporary ssh-key
-if [ ! -e "$HOME/.ssh/id_ed25519" ]; then
-  ssh-keygen -t ed25519 -C "temp_ssh_key" -f ~/.ssh/id_ed25519
+if [[ ! -e $HOME/.ssh/id_ed25519 ]]; then
+  ssh-keygen -t ed25519 -C "temp_ssh_key" -f "$HOME/.ssh/id_ed25519"
   echo "Created ed25519 ssh key."
-  cat ~/.ssh/id_ed25519.pub
+  cat "$HOME/.ssh/id_ed25519.pub"
   add_msg "Configure ssh keys"
 fi
 
-# pull dotfiles
-if [ ! -d "$HOME/dotfiles/" ]; then
-  mkdir -p "$HOME/dotfiles/"
-  git -c url."https://github.com/".insteadOf="git@github.com:" clone --recurse-submodules git@github.com/PeterPavicic/dotfiles.git "$HOME/dotfiles"
-  sh "$HOME/dotfiles/create_symlinks.sh"
-
-  cd "$HOME/dotfiles/"
-
-  # Add post-merge hook to script which creates symlinks
-  cat > .git/hooks/post-merge << 'EOF'
-#!/bin/sh
-"$(git rev-parse --show-toplevel)/create_symlinks.sh"
-EOF
-
-  chmod +x .git/hooks/post-merge
-
-  cd "$HOME"
+# pull dotfiles (skipped when this script is run from an existing clone)
+if [[ ! -d $dotfiles ]]; then
+  git -c url."https://github.com/".insteadOf="git@github.com:" clone --recurse-submodules git@github.com:PeterPavicic/dotfiles.git "$dotfiles"
 fi
 
+# Symlink dotfiles into $HOME. Runs even if the clone above was skipped;
+# safe to rerun, existing symlinks are left alone.
+"$dotfiles/create_symlinks.sh"
+
+# Recreate symlinks after every `git pull` so newly added files get linked.
+# Commits made locally don't trigger this hook: rerun create_symlinks.sh after adding files.
+cat > "$dotfiles/.git/hooks/post-merge" << 'EOF'
+#!/usr/bin/env bash
+"$(git rev-parse --show-toplevel)/create_symlinks.sh"
+EOF
+chmod +x "$dotfiles/.git/hooks/post-merge"
+
 # Install yay if not installed
-if ! command -v yay >/dev/null 2>&1; then
-  mkdir -p "$HOME/yay/"
+if ! command -v yay &>/dev/null; then
   git clone https://aur.archlinux.org/yay.git "$HOME/yay"
-  cd "$HOME/yay"
-  makepkg -si
-  cd "$HOME"
+  (cd "$HOME/yay" && makepkg -si)
   rm -rf "$HOME/yay"
 fi
 
 # install TPM if missing
-if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
-  mkdir -p "$HOME/.tmux/plugins/tpm"
-  git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+if [[ ! -d $HOME/.tmux/plugins/tpm ]]; then
+  git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
   add_msg "Installed TPM. Open tmux and press C-b + I now"
 fi
 
 
 # sets up neovim's python provider if it doesn't exist yet
 setup_nvim_python_host() {
-  nvim_venv="$HOME/.local/share/nvim/python-host"
+  local nvim_venv="$HOME/.local/share/nvim/python-host"
 
-  if [ -x "$nvim_venv/bin/python" ]; then
-      echo "nvim python host already present at $nvim_venv, skipping"
-      return 0
+  if [[ -x $nvim_venv/bin/python ]]; then
+    echo "nvim python host already present at $nvim_venv, skipping"
+    return 0
   fi
 
   echo "Creating nvim python host at $nvim_venv"
-  mkdir -p "$(dirname "$nvim_venv")"
+  mkdir -p "${nvim_venv%/*}"
 
   # If jupyter has never been run "properly", this won't exist
   echo "Creating jupyter runtime path"
-  mkdir -p ~/.local/share/jupyter/runtime
+  mkdir -p "$HOME/.local/share/jupyter/runtime"
 
   if uv venv --python python3 "$nvim_venv" &&
      uv pip install -p "$nvim_venv" pynvim jupyter_client cairosvg pnglatex plotly kaleido pyperclip nbformat pillow
   then
-      echo "nvim python host ready"
+    echo "nvim python host ready"
   else
-      echo "nvim python host setup failed, removing partial venv" >&2
-      rm -rf "$nvim_venv"
-      return 1
+    echo "nvim python host setup failed, removing partial venv" >&2
+    rm -rf "$nvim_venv"
+    return 1
   fi
 }
 
@@ -142,7 +144,7 @@ sudo systemctl enable --now power-profiles-daemon.service
 
 
 # Initialise reflector config
-sudo cp "$HOME/dotfiles/other/etc/xdg/reflector/reflector.conf" "/etc/xdg/reflector/reflector.conf"
+sudo cp "$dotfiles/other/etc/xdg/reflector/reflector.conf" "/etc/xdg/reflector/reflector.conf"
 # Run once
 sudo systemctl start reflector.service
 
@@ -168,27 +170,27 @@ systemctl --user add-wants wayland-session@hyprland.desktop.target \
 
 # Clipboard history for every graphical session. The unit file lives in this repo;
 # `enable` with a path symlinks it into ~/.config/systemd/user/ and enables it.
-systemctl --user enable "$HOME/dotfiles/other/systemd/user/cliphist.service"
+systemctl --user enable "$dotfiles/other/systemd/user/cliphist.service"
 
 # cursors
 install_cursor_theme() {
-  theme=$1
-  icons_dir="$HOME/.local/share/icons"
-  archive="$HOME/dotfiles/other/$theme.tar.xz"
-  
-  if [ -d "$icons_dir/$theme" ]; then
-      echo "$theme already installed, skipping"
-      return 0
+  local theme=$1
+  local icons_dir="$HOME/.local/share/icons"
+  local archive="$dotfiles/other/$theme.tar.xz"
+
+  if [[ -d $icons_dir/$theme ]]; then
+    echo "$theme already installed, skipping"
+    return 0
   fi
-  
-  mkdir -p "$icons_dir" || return 1
+
+  mkdir -p "$icons_dir"
 
   if tar -xJf "$archive" -C "$icons_dir"; then
-      echo "Installed $theme"
+    echo "Installed $theme"
   else
-      echo "Extracting $theme failed, removing partial install" >&2
-      rm -rf "$icons_dir/$theme"
-      return 1
+    echo "Extracting $theme failed, removing partial install" >&2
+    rm -rf "${icons_dir:?}/$theme"
+    return 1
   fi
 }
 
@@ -203,14 +205,14 @@ gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
 
 # check whether zsh is the login shell
 login_shell=$(getent passwd "$(id -un)" 2>/dev/null | cut -d: -f7)
-[ -n "$login_shell" ] || login_shell=$SHELL
+login_shell=${login_shell:-$SHELL}
 
-case "$login_shell" in
-  */zsh) ;;
-  *) add_msg 'Set zsh as your login shell: chsh -s "$(command -v zsh)"' ;;
-esac
+if [[ $login_shell != */zsh ]]; then
+  add_msg 'Set zsh as your login shell: chsh -s "$(command -v zsh)"'
+fi
 
-if [ -n "$POST_INSTALL_MSGS" ]; then
-    printf '\nManual steps remaining:\n%s' "$POST_INSTALL_MSGS"
-    echo "It is recommended to reboot now if installing for the first time"
+if (( ${#post_install_msgs[@]} )); then
+  printf '\nManual steps remaining:\n'
+  printf '  - %s\n' "${post_install_msgs[@]}"
+  echo "It is recommended to reboot now if installing for the first time"
 fi
