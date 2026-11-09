@@ -163,6 +163,10 @@ systemctl --user enable --now hypridle.service
 systemctl --user enable --now hyprpolkitagent.service
 systemctl --user enable --now obex.service
 
+# Clipboard history for every graphical session. The unit file lives in this repo;
+# `enable` with a path symlinks it into ~/.config/systemd/user/ and enables it.
+systemctl --user enable "$HOME/dotfiles/other/systemd/user/cliphist.service"
+
 # cursors
 install_cursor_theme() {
   theme=$1

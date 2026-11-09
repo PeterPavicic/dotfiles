@@ -1,0 +1,22 @@
+# Clipboard history watcher for every uwsm-managed Wayland session (Hyprland or any other compositor).
+# Based on uwsm's example: /usr/share/doc/uwsm/example-units/cliphist.service
+#
+# Installed by other/install_script.sh with:
+#   systemctl --user enable ~/dotfiles/other/systemd/user/cliphist.service
+# `enable` with a path symlinks this file into ~/.config/systemd/user/, so after
+# editing it here, run `systemctl --user daemon-reload` and restart the service.
+
+[Unit]
+Description=Clipboard history watcher (cliphist)
+Documentation=https://github.com/sentriz/cliphist
+After=graphical-session.target
+PartOf=graphical-session.target
+
+[Service]
+Type=exec
+ExecStart=/usr/bin/wl-paste --watch /usr/bin/cliphist store
+Restart=on-failure
+Slice=app-graphical.slice
+
+[Install]
+WantedBy=graphical-session.target
