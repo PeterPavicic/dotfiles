@@ -7,7 +7,7 @@ local M = {}
 -- own systemd unit instead of inside the compositor's service.
 -- (clipboard history runs as a systemd user service: other/systemd/user/cliphist.service)
 M.autostart = {
-  "uwsm-app -- waybar",
+  "uwsm-app -- waybar -c ~/.config/waybar/hyprland.jsonc",
 }
 
 M.WiFiPicker = "pkill rofi || bash $HOME/.config/rofi/rofi-wifi-menu/rofi-wifi-menu.sh"

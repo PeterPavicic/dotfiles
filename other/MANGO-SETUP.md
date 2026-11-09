@@ -68,8 +68,9 @@ Get a working session first, then port the rest (step 6).
   which uwsm says not to use. Remove it, or replace it with
   `bind=SUPER,m,spawn,uwsm stop`. The rofi power menu's log out also works.
 - **Autostart:** the default config starts nothing. Add
-  `exec_once=uwsm-app -- waybar` (see step 6 for a Mango waybar config).
-  `exec_once=` runs once at startup; `exec=` runs again on every reload.
+  `exec_once=uwsm-app -- waybar -c ~/.config/waybar/mango.jsonc`.
+  `exec_once=` runs once at startup; `exec=` runs again on every reload. Both
+  run through `sh -c`, so `~` and `$HOME` work.
 - **Environment variables:** put them in `~/.config/uwsm/env-mango`, not in
   Mango's `env=` lines (those are reset on every config reload).
 - **`uwsm finalize` is not needed:** Mango exports `WAYLAND_DISPLAY`,
@@ -93,11 +94,13 @@ under uwsm, look there first.
 
 ## 6. Port the Hyprland-only pieces
 
-- **waybar:** `hyprland/workspaces` and `hyprland/language` only work under
-  Hyprland. Make a separate config, e.g. `~/.config/waybar/mango.jsonc`, and start
-  it with `exec_once=uwsm-app -- waybar -c ~/.config/waybar/mango.jsonc`.
-  Mango is based on dwl, so try waybar's `dwl/tags` module for tags.
-- **Keyboard layout switching:** `hypr/switchLayout.sh` uses `hyprctl`.
+- **waybar:** already split. Each compositor starts its own file with `-c`:
+  `waybar/hyprland.jsonc` and `waybar/mango.jsonc`. Both include
+  `waybar/common.jsonc` for the shared modules. `mango.jsonc` uses waybar's
+  `mango/workspaces` and `mango/language` modules (waybar 0.16+). They use the
+  same CSS ids as the Hyprland modules, so `style.css` is shared.
+- **Keyboard layout switching:** `hypr/switchLayout.sh` uses `hyprctl`, so
+  clicking the language module does nothing under Mango yet.
 - **Screenshots:** `hyprshot` needs Hyprland; use `grim` + `slurp`.
 - **The rest of `hypr/lua/`:** port input, monitors, bindings and window rules in
   small steps. Mango uses dwl-style tags instead of workspaces (a window can carry
