@@ -17,7 +17,7 @@ sudo pacman -S bat lsd btop fd ripgrep zsh --needed
 sudo pacman -S zsh-syntax-highlighting zsh-autosuggestions --needed
 
 # hyprland
-sudo pacman -S hyprland hyprpolkitagent hypridle hyprlock hyprpaper hyprpicker hyprshot hyprshutdown xdg-desktop-portal-hyprland --needed
+sudo pacman -S uwsm hyprland hyprpolkitagent hypridle hyprlock hyprpaper hyprpicker hyprshot hyprshutdown xdg-desktop-portal-hyprland --needed
 
 # hyprland programs
 sudo pacman -S waybar blueman pavucontrol mako rofi rofi-calc rofi-emoji --needed
@@ -158,10 +158,13 @@ sudo systemctl enable --now reflector.timer
 # enable user services
 systemctl --user enable --now pipewire.service
 systemctl --user enable --now wireplumber.service
-systemctl --user enable --now hyprpaper.service
-systemctl --user enable --now hypridle.service
-systemctl --user enable --now hyprpolkitagent.service
 systemctl --user enable --now obex.service
+
+# Hyprland-only session services: start with the uwsm-managed Hyprland session,
+# not with every graphical session (plain `enable` would hook them into
+# graphical-session.target, so they would also start under other compositors)
+systemctl --user add-wants wayland-session@hyprland.desktop.target \
+  hyprpaper.service hypridle.service hyprpolkitagent.service
 
 # Clipboard history for every graphical session. The unit file lives in this repo;
 # `enable` with a path symlinks it into ~/.config/systemd/user/ and enables it.

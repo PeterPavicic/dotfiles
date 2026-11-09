@@ -4,6 +4,8 @@ configuration {
   cache-dir: "/home/peter/.cache/rofi";
   drun-use-desktop-cache: true;
   drun-reload-desktop-cache: false;
+  run-command: "uwsm-app -- {cmd}";
+  recursivebrowser { command: "uwsm-app -- xdg-open"; }
   /*	location: 0;*/
   /*	yoffset: 0;*/
   /*	xoffset: 0;*/
