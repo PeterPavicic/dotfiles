@@ -1,0 +1,5 @@
+[Desktop Entry]
+Type=Application
+Name=KDE Connect
+Comment=Disabled for this user: kdeconnect's autostart entry has no OnlyShowIn=KDE, so uwsm would start it in Hyprland too. The Plasma Bigscreen user is not affected.
+Hidden=true
