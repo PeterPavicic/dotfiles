@@ -162,11 +162,18 @@ systemctl --user enable --now pipewire.service
 systemctl --user enable --now wireplumber.service
 systemctl --user enable --now obex.service
 
-# Hyprland-only session services: start with the uwsm-managed Hyprland session,
-# not with every graphical session (plain `enable` would hook them into
-# graphical-session.target, so they would also start under other compositors)
-systemctl --user add-wants wayland-session@hyprland.desktop.target \
-  hyprpaper.service hypridle.service hyprpolkitagent.service
+# hypr* session services: start them only with the compositors listed here
+# (plain `enable` would hook them into graphical-session.target, i.e. every compositor).
+# Hook them into wayland-session-xdg-autostart@, NOT wayland-session@: a target is
+# ordered after what it wants, the units are ordered after graphical-session.target,
+# and that is ordered after wayland-session@, so systemd would drop them as a cycle.
+# mango.desktop only matters once Mango is set up, see other/MANGO-SETUP.md
+# (harmless before that: the target is never started)
+hypr_units=(hyprpaper.service hypridle.service hyprpolkitagent.service)
+systemctl --user disable "${hypr_units[@]}"   # drop links from earlier runs
+for session in hyprland.desktop mango.desktop; do
+  systemctl --user add-wants "wayland-session-xdg-autostart@$session.target" "${hypr_units[@]}"
+done
 
 # Clipboard history for every graphical session. The unit file lives in this repo;
 # `enable` with a path symlinks it into ~/.config/systemd/user/ and enables it.
