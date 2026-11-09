@@ -1,0 +1,5 @@
+[Desktop Entry]
+Type=Application
+Name=Blueman Applet
+Comment=Disabled: blueman-manager starts the applet on demand over D-Bus and stops it on close
+Hidden=true
