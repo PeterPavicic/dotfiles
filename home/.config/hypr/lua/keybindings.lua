@@ -26,7 +26,6 @@ hl.bind(mainMod .. "+ T", hl.dsp.layout("swapwithmaster"))
 hl.bind(mainMod .. "+ SHIFT + T", hl.dsp.layout("orientationcycle"))
 
 -- Enter/Exit
-hl.bind(mainMod .. "+ M", hl.dsp.exit())
 hl.bind(mainMod .. "+ Q", hl.dsp.window.close())
 
 -- Programs
