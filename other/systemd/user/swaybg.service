@@ -1,0 +1,29 @@
+# Wallpaper for every uwsm-managed Wayland session except Hyprland, which runs
+# hyprpaper (hooked into Hyprland's session only by other/install_script.sh).
+# swaybg works on any compositor with wlr-layer-shell, so it is the default for
+# everything else (Mango, ...).
+#
+# Installed by other/install_script.sh with:
+#   systemctl --user enable ~/dotfiles/other/systemd/user/swaybg.service
+# `enable` with a path symlinks this file into ~/.config/systemd/user/, so after
+# editing it here, run `systemctl --user daemon-reload` and restart the service.
+#
+# Keep the image in sync with `path` in ~/.config/hypr/hyprpaper.conf.
+
+[Unit]
+Description=Wallpaper (swaybg) for every compositor except Hyprland
+Documentation=man:swaybg(1)
+After=graphical-session.target
+PartOf=graphical-session.target
+
+[Service]
+Type=exec
+# Skip (not fail) under Hyprland. uwsm exports XDG_CURRENT_DESKTOP to the user
+# manager; it is a colon-separated list. `$$` passes a literal `$` to sh.
+ExecCondition=/bin/sh -c 'case ":$${XDG_CURRENT_DESKTOP}:" in *:Hyprland:*) exit 1 ;; esac'
+ExecStart=/usr/bin/swaybg --image %h/wallpapers/snoopy_in_space.jpg --mode fill
+Restart=on-failure
+Slice=app-graphical.slice
+
+[Install]
+WantedBy=graphical-session.target

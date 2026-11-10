@@ -20,8 +20,12 @@
     "custom/power"
   ],
   "mango/workspaces": {
-    "format": "{name}: <big>{icon}</big>",
+    "format": "{icon}",
+    "hide-empty": true,
+    // "format": "{name}: <big>{icon}</big>",
     "on-click": "activate",
+    "on-click-right": "toggle",
+    "overview-label": "OVERVIEW",
     "format-icons": {
       "1": "",
       "2": "",
@@ -38,5 +42,6 @@
   "mango/language": {
     // no on-click yet: hypr/switchLayout.sh uses hyprctl
     "format": "{short}"
+    // "on-click": "switch"
   }
 }

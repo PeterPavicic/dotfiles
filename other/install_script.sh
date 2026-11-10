@@ -26,6 +26,9 @@ packages=(
   # (to try Mango next to Hyprland, follow other/MANGO-SETUP.md after this script)
   uwsm hyprland hyprpolkitagent hypridle hyprlock hyprpaper hyprpicker hyprshot hyprshutdown xdg-desktop-portal-hyprland
 
+  # wallpaper for every compositor except Hyprland (other/systemd/user/swaybg.service)
+  swaybg
+
   # hyprland programs
   waybar blueman pavucontrol mako rofi rofi-calc rofi-emoji
 
@@ -172,13 +175,21 @@ systemctl --user enable --now obex.service
 # (harmless before that: the target is never started)
 hypr_units=(hyprpaper.service hypridle.service hyprpolkitagent.service)
 systemctl --user disable "${hypr_units[@]}"   # drop links from earlier runs
-for session in hyprland.desktop mango.desktop; do
-  systemctl --user add-wants "wayland-session-xdg-autostart@$session.target" "${hypr_units[@]}"
-done
+systemctl --user add-wants wayland-session-xdg-autostart@hyprland.desktop.target "${hypr_units[@]}"
+# No hyprpaper under Mango: it aborts there (hyprtoolkit asks for layer-shell v5,
+# Mango offers v4). swaybg.service below sets the wallpaper instead.
+# FIXME: hyprpolkitagent aborts the same way, so Mango has no working polkit agent.
+# It stays here only as a placeholder: replace it with a generic agent
+# (polkit-gnome or lxqt-policykit) that runs everywhere except Hyprland, like swaybg.
+systemctl --user add-wants wayland-session-xdg-autostart@mango.desktop.target hypridle.service hyprpolkitagent.service
 
 # Clipboard history for every graphical session. The unit file lives in this repo;
 # `enable` with a path symlinks it into ~/.config/systemd/user/ and enables it.
 systemctl --user enable "$dotfiles/other/systemd/user/cliphist.service"
+
+# Wallpaper for every graphical session except Hyprland (it skips itself there;
+# Hyprland runs hyprpaper, hooked in above).
+systemctl --user enable "$dotfiles/other/systemd/user/swaybg.service"
 
 # cursors
 install_cursor_theme() {
