@@ -3,7 +3,7 @@
   //   exec_once=uwsm-app -- waybar -c ~/.config/waybar/mango.jsonc
   // Shared bar settings and modules: common.jsonc (values set here win).
   "include": ["~/.config/waybar/common.jsonc"],
-  "modules-left": ["mango/workspaces"],
+  "modules-left": ["ext/workspaces"],
   "modules-center": ["clock"],
   "modules-right": [
     "pulseaudio",
@@ -19,10 +19,10 @@
     "custom/lock",
     "custom/power"
   ],
-  "mango/workspaces": {
-    "format": "{icon}",
+  "ext/workspaces": {
+    // "format": "{icon}",
+    "format": "{name}: <big>{icon}</big>",
     "hide-empty": true,
-    // "format": "{name}: <big>{icon}</big>",
     "on-click": "activate",
     "on-click-right": "toggle",
     "overview-label": "OVERVIEW",

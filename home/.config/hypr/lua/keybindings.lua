@@ -27,6 +27,7 @@ hl.bind(mainMod .. "+ SHIFT + T", hl.dsp.layout("orientationcycle"))
 
 -- Enter/Exit
 hl.bind(mainMod .. "+ Q", hl.dsp.window.close())
+hl.bind(mainMod .. "+ M", hl.dsp.exit())
 
 -- Programs
 hl.bind(mainMod .. " + C", hl.dsp.exec_cmd(programs.calculator))
