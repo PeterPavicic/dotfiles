@@ -62,7 +62,7 @@ width=400
 # height=100
 
 # Keyboard switch notifications
-[category=kbd-switch]
+[category=layout-switch]
 anchor=center
 default-timeout=500
 ignore-timeout=1
