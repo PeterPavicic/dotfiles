@@ -3,7 +3,7 @@
   //   exec_once=uwsm-app -- waybar -c ~/.config/waybar/mango.jsonc
   // Shared bar settings and modules: common.jsonc (values set here win).
   "include": ["~/.config/waybar/common.jsonc"],
-  "modules-left": ["ext/workspaces"],
+  "modules-left": ["mango/workspaces"],
   "modules-center": ["clock"],
   "modules-right": [
     "pulseaudio",
@@ -19,7 +19,7 @@
     "custom/lock",
     "custom/power"
   ],
-  "ext/workspaces": {
+  "mango/workspaces": {
     // "format": "{icon}",
     "format": "{name}: <big>{icon}</big>",
     "hide-empty": true,
@@ -41,7 +41,7 @@
   },
   "mango/language": {
     // no on-click yet: hypr/switchLayout.sh uses hyprctl
-    "format": "{short}"
-    // "on-click": "switch"
+    "format": "{short}",
+    "on-click": "$HOME/.config/mango/switchLayout.sh"
   }
 }
