@@ -5,7 +5,7 @@ local programs = require("lua.programs") -- programs and utilities
 -- Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
 
 -- Cycle keyboard language
-hl.bind(mainMod .. "+ SPACE", hl.dsp.exec_cmd("$HOME/.config/hypr/switchLayout.sh"))
+hl.bind(mainMod .. "+ SPACE", hl.dsp.exec_cmd("$HOME/.config/hypr/switchKeyboardLayout.sh"))
 
 -- Cycle power profile
 hl.bind(mainMod .. "+ B", hl.dsp.exec_cmd("$HOME/.config/hypr/cycle-power-profile.sh"))
