@@ -5,21 +5,21 @@ export LANG=en_US.UTF-8
 HISTFILE=$HOME/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
-setopt append_history # append history (not overwrite)
-setopt inc_append_history # append after execution
-setopt share_history # share across sessions
+setopt append_history       # append history (not overwrite)
+setopt inc_append_history   # append after execution
+setopt share_history        # share across sessions
 setopt hist_ignore_all_dups # deduplicate
-setopt hist_reduce_blanks # reduce blanks before writing to history
+setopt hist_reduce_blanks   # reduce blanks before writing to history
 
 #### Autocomplete ####
 setopt auto_menu
-setopt menu_complete # autocmp first menu match
-setopt autocd # type a dir to cd
+setopt menu_complete              # autocmp first menu match
+setopt autocd                     # type a dir to cd
 setopt no_case_glob no_case_match # make cmp case insensitive
-setopt globdots # include dotfiles
-setopt extended_glob # match ~ # ^
-setopt interactive_comments # allow comments in shell
-unsetopt prompt_sp # don't autoclean blanklines
+setopt globdots                   # include dotfiles
+setopt extended_glob              # match ~ # ^
+setopt interactive_comments       # allow comments in shell
+unsetopt prompt_sp                # don't autoclean blanklines
 # stty stop undef # disable accidental ctrl s
 
 ######## Completion ########
@@ -35,25 +35,24 @@ zle -N history-beginning-search-forward-end history-search-end
 # colors
 eval "$(dircolors $HOME/.dircolors)"
 
-zstyle ':completion:*' menu select # tab opens cmp menu
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'  # case-insensitive
+zstyle ':completion:*' menu select                    # tab opens cmp menu
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'   # case-insensitive
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS} # colorize cmp menu
-setopt CORRECT # replaces ENABLE_CORRECTION
+setopt CORRECT                                        # replaces ENABLE_CORRECTION
 
 # make `/` character 'separate word', so it is not deleted with Ctrl-W
-WORDCHARS=${WORDCHARS/\/}
+WORDCHARS=${WORDCHARS/\//}
 
 ######## fzf setup ########
 source <(fzf --zsh) # allow for fzf history widget
 
-
-######## Git prompt via vcs_info ######## 
+######## Git prompt via vcs_info ########
 autoload -Uz vcs_info
 zstyle ':vcs_info:*' enable git
 zstyle ':vcs_info:*' check-for-changes true
 
 # Don't show staged/unstaged
-zstyle ':vcs_info:*' stagedstr '%F%f' # staged changes
+zstyle ':vcs_info:*' stagedstr '%F%f'   # staged changes
 zstyle ':vcs_info:*' unstagedstr '%F%f' # unstaged changes
 
 # # Show staged/unstaged
@@ -75,13 +74,13 @@ function _git_indicator() {
 zstyle ':vcs_info:git:*' formats '%F{blue}%b%f%c%u%m'
 zstyle ':vcs_info:git:*' actionformats '%F{blue}%b%f|%F{red}%a%f%c%u%m'
 
-precmd() { vcs_info }
+precmd() { vcs_info; }
 setopt PROMPT_SUBST
 
 PROMPT='%B%F{green}%n@%m%f%b:%F{blue}%~%f
 $(_git_indicator) %B$%b '
 
-######## Keybinds ######## 
+######## Keybinds ########
 # Vi mode
 bindkey -v
 export KEYTIMEOUT=10 # 100ms escape delay
@@ -119,18 +118,20 @@ bindkey '\e[B' history-beginning-search-forward-end
 # disable accidental ctrl s
 stty stop undef
 
-######## Aliases ######## 
+######## Aliases ########
 source $HOME/.zsh_aliases
 
-######## Plugins ######## 
+######## Plugins ########
 _load_zsh_plugin() {
   local name=$1 f
   for f in \
     /usr/share/zsh/plugins/$name/$name.zsh \
     /usr/share/$name/$name.zsh \
-    "$HOME/.config/zsh/plugins/$name/$name.zsh"
-  do
-    [[ -r $f ]] && { source "$f"; return 0; }
+    "$HOME/.config/zsh/plugins/$name/$name.zsh"; do
+    [[ -r $f ]] && {
+      source "$f"
+      return 0
+    }
   done
   return 1
 }
@@ -140,7 +141,7 @@ _load_zsh_plugin zsh-autosuggestions
 # Search path for cd builtin (similar to regular PATH), POSIX compliant
 CDPATH=.:$HOME/projects:$HOME/.config
 
-######## Local overrides ######## 
+######## Local overrides ########
 [[ -f "$HOME/.zshrc.local" ]] && source "$HOME/.zshrc.local"
 
 ######## Match cursor to mode (normal/insert) ########
@@ -152,6 +153,9 @@ function zle-keymap-select zle-line-init {
   fi
 }
 
+# Function for creating temp directory and cd-ing into it (optionally named)
+tmpcd() { cd "$(mktemp -d "${TMPDIR:-/tmp}/${1:-tmp}.XXXXXX")"; }
+
 # Switch to block cursor when entering claude code
 claude() {
   echo -ne '\e[2 q' # block cursor for Claude Code
@@ -160,7 +164,7 @@ claude() {
 
 zle -N zle-keymap-select
 zle -N zle-line-init
-echo -ne '\e[6 q'  # default to beam on startup
+echo -ne '\e[6 q' # default to beam on startup
 
 # zsh syntax highlighting MUST be last
 _load_zsh_plugin zsh-syntax-highlighting
