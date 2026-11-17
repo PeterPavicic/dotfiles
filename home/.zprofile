@@ -1,5 +1,3 @@
-mkdir -p /tmp/aa
-
 ######## Path ########
 # Set in the login profile so the graphical session gets it too
 # (SDDM sources this, uwsm exports PATH into the session).

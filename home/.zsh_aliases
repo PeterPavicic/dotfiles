@@ -9,5 +9,5 @@ alias gloga="git log --graph --oneline --all"
 alias grep="grep --color"
 alias gst="git status"
 alias l="ls -lAFh" # List files as a long list, show size, type, human-readable
-alias ls="lsd" # use lsd
+alias ls="lsd"     # use lsd
 alias sgrep="grep -R -n -H -C 5 --exclude-dir={.git,.svn,CVS}"
