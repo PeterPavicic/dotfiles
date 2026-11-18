@@ -5,7 +5,6 @@ sort=-time
 font=sans 12
 background-color=#2e3440
 text-color=#cdd6f4ff
-# text-color=#FFFFFFFF
 width=300
 height=100
 outer-margin=0
@@ -76,3 +75,12 @@ text-alignment=center
 format=<b>%b</b>
 icons=1
 max-icon-size=16
+
+# Screenshot
+[app-name=screenshot]
+default-timeout=7000
+on-button-left=invoke-default-action
+max-icon-size=128
+# icon-location=top
+width=320
+# height=300
