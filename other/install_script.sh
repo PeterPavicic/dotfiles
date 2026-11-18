@@ -26,8 +26,8 @@ packages=(
   # (to try Mango next to Hyprland, follow other/MANGO-SETUP.md after this script)
   uwsm hyprland hyprpolkitagent hypridle hyprlock hyprpaper hyprpicker hyprshot hyprshutdown xdg-desktop-portal-hyprland
 
-  # wallpaper for every compositor except Hyprland (other/systemd/user/swaybg.service)
-  swaybg
+  # mango
+  uwsm mangowm xdg-desktop-portal xdg-desktop-portal-wlr xdg-desktop-portal-gtk grim slurp satty swaybg hyprlock hypridle hyprpicker polkit-gnome
 
   # hyprland programs
   waybar blueman pavucontrol mako rofi rofi-calc rofi-emoji
@@ -87,7 +87,7 @@ fi
 
 # Recreate symlinks after every `git pull` so newly added files get linked.
 # Commits made locally don't trigger this hook: rerun create_symlinks.sh after adding files.
-cat > "$dotfiles/.git/hooks/post-merge" << 'EOF'
+cat >"$dotfiles/.git/hooks/post-merge" <<'EOF'
 #!/usr/bin/env bash
 "$(git rev-parse --show-toplevel)/create_symlinks.sh"
 EOF
@@ -106,7 +106,6 @@ if [[ ! -d $HOME/.tmux/plugins/tpm ]]; then
   add_msg "Installed TPM. Open tmux and press C-b + I now"
 fi
 
-
 # sets up neovim's python provider if it doesn't exist yet
 setup_nvim_python_host() {
   local nvim_venv="$HOME/.local/share/nvim/python-host"
@@ -124,8 +123,7 @@ setup_nvim_python_host() {
   mkdir -p "$HOME/.local/share/jupyter/runtime"
 
   if uv venv --python python3 "$nvim_venv" &&
-     uv pip install -p "$nvim_venv" pynvim jupyter_client cairosvg pnglatex plotly kaleido pyperclip nbformat pillow
-  then
+    uv pip install -p "$nvim_venv" pynvim jupyter_client cairosvg pnglatex plotly kaleido pyperclip nbformat pillow; then
     echo "nvim python host ready"
   else
     echo "nvim python host setup failed, removing partial venv" >&2
@@ -136,7 +134,6 @@ setup_nvim_python_host() {
 
 setup_nvim_python_host
 
-
 # enable system services
 sudo systemctl enable --now bluetooth.service
 sudo systemctl enable --now NetworkManager.service
@@ -145,7 +142,6 @@ sudo systemctl enable --now firewalld
 sudo systemctl enable --now tailscaled
 sudo systemctl enable --now sshd
 sudo systemctl enable --now power-profiles-daemon.service
-
 
 # Initialise reflector config
 sudo cp "$dotfiles/other/etc/xdg/reflector/reflector.conf" "/etc/xdg/reflector/reflector.conf"
@@ -174,14 +170,12 @@ systemctl --user enable --now obex.service
 # mango.desktop only matters once Mango is set up, see other/MANGO-SETUP.md
 # (harmless before that: the target is never started)
 hypr_units=(hyprpaper.service hypridle.service hyprpolkitagent.service)
-systemctl --user disable "${hypr_units[@]}"   # drop links from earlier runs
+systemctl --user disable "${hypr_units[@]}" # drop links from earlier runs
 systemctl --user add-wants wayland-session-xdg-autostart@hyprland.desktop.target "${hypr_units[@]}"
-# No hyprpaper under Mango: it aborts there (hyprtoolkit asks for layer-shell v5,
-# Mango offers v4). swaybg.service below sets the wallpaper instead.
-# FIXME: hyprpolkitagent aborts the same way, so Mango has no working polkit agent.
-# It stays here only as a placeholder: replace it with a generic agent
-# (polkit-gnome or lxqt-policykit) that runs everywhere except Hyprland, like swaybg.
-systemctl --user add-wants wayland-session-xdg-autostart@mango.desktop.target hypridle.service hyprpolkitagent.service
+# No hyprpaper or hyprpolkitagent under Mango: both abort there (hyprpaper: hyprtoolkit
+# asks for layer-shell v5, Mango offers v4; hyprpolkitagent: "Couldn't open a gbm fd").
+# swaybg.service and polkit-gnome-agent.service below replace them.
+systemctl --user add-wants wayland-session-xdg-autostart@mango.desktop.target hypridle.service
 
 # Clipboard history for every graphical session. The unit file lives in this repo;
 # `enable` with a path symlinks it into ~/.config/systemd/user/ and enables it.
@@ -190,6 +184,10 @@ systemctl --user enable "$dotfiles/other/systemd/user/cliphist.service"
 # Wallpaper for every graphical session except Hyprland (it skips itself there;
 # Hyprland runs hyprpaper, hooked in above).
 systemctl --user enable "$dotfiles/other/systemd/user/swaybg.service"
+
+# Polkit agent for every graphical session except Hyprland (it skips itself there;
+# Hyprland runs hyprpolkitagent, hooked in above).
+systemctl --user enable "$dotfiles/other/systemd/user/polkit-gnome-agent.service"
 
 # cursors
 install_cursor_theme() {
@@ -230,7 +228,7 @@ if [[ $login_shell != */zsh ]]; then
   add_msg 'Set zsh as your login shell: chsh -s "$(command -v zsh)"'
 fi
 
-if (( ${#post_install_msgs[@]} )); then
+if ((${#post_install_msgs[@]})); then
   printf '\nManual steps remaining:\n'
   printf '  - %s\n' "${post_install_msgs[@]}"
   echo "It is recommended to reboot now if installing for the first time"

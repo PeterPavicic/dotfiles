@@ -6,10 +6,12 @@ session on the SDDM login screen.
 
 ## Already prepared
 
-- `install_script.sh` hooks `hypridle` and `hyprpolkitagent` into
-  `wayland-session-xdg-autostart@mango.desktop.target`, so they start only in Mango's uwsm
-  session (and in Hyprland's). `hyprpolkitagent` aborts under Mango (its toolkit asks
-  for layer-shell v5, Mango offers v4); a replacement is still to be picked.
+- `install_script.sh` hooks `hypridle` into
+  `wayland-session-xdg-autostart@mango.desktop.target`, so it starts only in Mango's uwsm
+  session (and in Hyprland's).
+- `polkit-gnome-agent.service` (`other/systemd/user/`) is the polkit agent in every
+  graphical session except Hyprland, which keeps `hyprpolkitagent` (it aborts under
+  Mango with "Couldn't open a gbm fd").
 - `cliphist.service` (`other/systemd/user/`) runs in every graphical session.
 - `swaybg.service` (`other/systemd/user/`) sets the wallpaper in every graphical
   session except Hyprland, which keeps `hyprpaper` (it aborts under Mango, like
@@ -87,7 +89,7 @@ Log in with **Mango (uwsm-managed)**, open a terminal and run:
 ```sh
 echo "$XDG_CURRENT_DESKTOP"                                  # contains "mango"
 systemctl --user status wayland-wm@mango.desktop.service     # CGroup: only mango (+ Xwayland), no apps
-systemctl --user is-active hypridle swaybg hyprpolkitagent cliphist
+systemctl --user is-active hypridle swaybg polkit-gnome-agent cliphist
 ~/.config/hypr/dpms.sh off; sleep 5; ~/.config/hypr/dpms.sh on   # tests dpms.sh's Mango branch
 ```
 
