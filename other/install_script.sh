@@ -100,6 +100,49 @@ if ! command -v yay &>/dev/null; then
   rm -rf "$HOME/yay"
 fi
 
+# AUR packages are not installed automatically (their PKGBUILDs should be reviewed
+# first): missing ones and pending AUR updates are added to the manual steps at the end.
+aur_packages=(
+  claude-code
+  downgrade
+  hyprqt6engine
+  nestopia
+  nordvpn-bin
+  plymouth-theme-arch-charge-big
+  teams-for-linux-bin
+  teams-for-linux-wayland-hook
+  wayfreeze
+  yay
+  zoom
+)
+
+check_aur_packages() {
+  local pkg updates err_file
+  local missing=()
+
+  # pacman -Q also accepts a package that provides the name (e.g. yay-bin for yay)
+  for pkg in "${aur_packages[@]}"; do
+    pacman -Q "$pkg" &>/dev/null || missing+=("$pkg")
+  done
+
+  if ((${#missing[@]})); then
+    add_msg "Install AUR packages: yay -S ${missing[*]}"
+  fi
+
+  # Checks every installed AUR package, not just the list above (yay -Sua updates them all).
+  # yay exits 1 both when nothing is outdated and when the AUR can't be reached;
+  # only the latter writes to stderr.
+  err_file=$(mktemp)
+  if updates=$(yay -Qua -q 2>"$err_file"); then
+    add_msg "Update AUR packages (${updates//$'\n'/, }): yay -Sua"
+  elif [[ -s $err_file ]]; then
+    add_msg "Couldn't check for AUR updates: run yay -Qua"
+  fi
+  rm -f "$err_file"
+}
+
+check_aur_packages
+
 # install TPM if missing
 if [[ ! -d $HOME/.tmux/plugins/tpm ]]; then
   git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
