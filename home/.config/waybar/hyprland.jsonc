@@ -15,7 +15,7 @@
     "bluetooth",
     "cpu",
     "memory",
-    "idle_inhibitor",
+    "inhibitor",
     "custom/lock",
     "custom/power"
   ],

@@ -37,7 +37,7 @@
 #bluetooth,
 #cpu,
 #memory,
-#idle_inhibitor,
+#inhibitor,
 #custom-lock {
   /* uncomment to debug */
   /* background-color: #aaaa23;  */
@@ -110,7 +110,7 @@
 /* cpu */
 /* memory */
 
-#idle_inhibitor {
+#inhibitor {
   padding-right: 1rem;
 }
 
