@@ -37,6 +37,7 @@
   },
   "pulseaudio": {
     "scroll-step": 1,
+    "smooth-scrolling-threshold": 0.3,
     "reverse-scrolling": true,
     "format": "{icon} {volume:>2}%",
     "format-bluetooth": "󰂰 {icon}{volume:>2}%",
@@ -48,6 +49,7 @@
     "on-click-middle": "pactl set-sink-mute @DEFAULT_SINK@ toggle"
   },
   "backlight": {
+    "smooth-scrolling-threshold": 0.3,
     "reverse-scrolling": true,
     "device": "intel_backlight",
     "format": "{icon} {percent:>2}%",
