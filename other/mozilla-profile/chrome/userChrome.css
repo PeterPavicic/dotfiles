@@ -1,0 +1,32 @@
+/* No @namespace line in this file: many old guides include one,
+   and it silently stops :root and body from matching. */
+
+:root {
+  background: transparent !important;
+}
+
+/* Firefox 150+ paints the backdrop on <body>. A light tint keeps text
+   readable over busy wallpapers; set the alpha to 0 for fully clear. */
+body {
+  background: rgba(20, 20, 26, 0.8) !important;
+}
+
+/* appearance:none stops GTK from painting the toolbar rows itself */
+#navigator-toolbox,
+#navigator-toolbox toolbar,
+#TabsToolbar,
+#nav-bar,
+#PersonalToolbar {
+  appearance: none !important;
+  background: transparent !important;
+}
+
+/* Page area: needs browser.tabs.allow_transparent_browser = true */
+:root {
+  --tabpanel-background-color: transparent !important;
+}
+#browser,
+#tabbrowser-tabpanels,
+.browserContainer {
+  background: transparent !important;
+}

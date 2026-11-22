@@ -72,5 +72,9 @@ done
 cd "$SOURCE_DIR"
 createSymlinks *
 
+# Firefox/Zen profile dirs have random names and hold per-machine state, so
+# only individual files are linked into them, by a separate script
+"$SCRIPT_DIR/other/link_mozilla_profiles.sh"
+
 shopt -u dotglob
 exit 0
