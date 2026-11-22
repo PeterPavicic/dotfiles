@@ -1,3 +1,6 @@
 [submodule "home/.config/nvim"]
 	path = home/.config/nvim
 	url = git@github.com:PeterPavicic/NeovimRC.git
+[submodule "other/rofi-theme"]
+	path = other/rofi-theme
+	url = github.com:newmanls/rofi-themes-collection.git
