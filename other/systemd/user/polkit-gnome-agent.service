@@ -1,7 +1,8 @@
-# Polkit authentication agent (polkit-gnome) for every uwsm-managed Wayland session
-# except Hyprland, which runs hyprpolkitagent (hooked into Hyprland's session only by
-# other/install_script.sh). hyprpolkitagent aborts under Mango, and polkit-gnome is a
-# plain GTK3 window, so it works on any compositor.
+# Polkit authentication agent (polkit-gnome) for every Wayland session except
+# Hyprland, which runs hyprpolkitagent (hooked into Hyprland's session only by
+# other/install_script.sh), and Plasma, which runs polkit-kde-agent. hyprpolkitagent
+# aborts under Mango, and polkit-gnome is a plain GTK3 window, so it works on any
+# compositor.
 #
 # Installed by other/install_script.sh with:
 #   systemctl --user enable ~/dotfiles/other/systemd/user/polkit-gnome-agent.service
@@ -11,16 +12,16 @@
 # Test: `pkexec true` should open a password dialog.
 
 [Unit]
-Description=Polkit authentication agent (polkit-gnome) for every compositor except Hyprland
+Description=Polkit authentication agent (polkit-gnome) for every compositor except Hyprland and Plasma
 After=graphical-session.target
 PartOf=graphical-session.target
 
 [Service]
 Type=exec
-# Skip (not fail) under Hyprland: only one agent can register per session.
-# uwsm exports XDG_CURRENT_DESKTOP to the user manager; it is a colon-separated
-# list. `$$` passes a literal `$` to sh.
-ExecCondition=/bin/sh -c 'case ":$${XDG_CURRENT_DESKTOP}:" in *:Hyprland:*) exit 1 ;; esac'
+# Skip (not fail) under Hyprland and Plasma (XDG_CURRENT_DESKTOP=KDE): only one
+# agent can register per session. uwsm and Plasma both export XDG_CURRENT_DESKTOP
+# to the user manager; it is a colon-separated list. `$$` passes a literal `$` to sh.
+ExecCondition=/bin/sh -c 'case ":$${XDG_CURRENT_DESKTOP}:" in *:Hyprland:*|*:KDE:*) exit 1 ;; esac'
 ExecStart=/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 Restart=on-failure
 Slice=session.slice

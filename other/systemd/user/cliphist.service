@@ -1,4 +1,5 @@
-# Clipboard history watcher for every uwsm-managed Wayland session (Hyprland or any other compositor).
+# Clipboard history watcher for every Wayland session (Hyprland or any other
+# compositor) except Plasma, whose plasmashell keeps its own clipboard history.
 # Based on uwsm's example: /usr/share/doc/uwsm/example-units/cliphist.service
 #
 # Installed by other/install_script.sh with:
@@ -7,13 +8,17 @@
 # editing it here, run `systemctl --user daemon-reload` and restart the service.
 
 [Unit]
-Description=Clipboard history watcher (cliphist)
+Description=Clipboard history watcher (cliphist) for every compositor except Plasma
 Documentation=https://github.com/sentriz/cliphist
 After=graphical-session.target
 PartOf=graphical-session.target
 
 [Service]
 Type=exec
+# Skip (not fail) under Plasma (XDG_CURRENT_DESKTOP=KDE). uwsm and Plasma both
+# export XDG_CURRENT_DESKTOP to the user manager; it is a colon-separated list.
+# `$$` passes a literal `$` to sh.
+ExecCondition=/bin/sh -c 'case ":$${XDG_CURRENT_DESKTOP}:" in *:KDE:*) exit 1 ;; esac'
 ExecStart=/usr/bin/wl-paste --watch /usr/bin/cliphist store
 Restart=on-failure
 Slice=app-graphical.slice

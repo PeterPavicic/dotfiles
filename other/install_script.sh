@@ -51,7 +51,7 @@ packages=(
   python r rust cargo uv
 
   # theme
-  breeze-gtk breeze-icons nwg-look
+  breeze breeze-gtk breeze-icons nwg-look
 
   # programs
   zathura zathura-pdf-mupdf firefox chromium thunar firewalld firewall-config loupe libreoffice-fresh qbittorrent
@@ -220,16 +220,29 @@ systemctl --user add-wants wayland-session-xdg-autostart@hyprland.desktop.target
 # swaybg.service and polkit-gnome-agent.service below replace them.
 systemctl --user add-wants wayland-session-xdg-autostart@mango.desktop.target hypridle.service
 
-# Clipboard history for every graphical session. The unit file lives in this repo;
-# `enable` with a path symlinks it into ~/.config/systemd/user/ and enables it.
+# mako: start it with Hyprland and Mango, hooked in like the hypr* units above.
+# Not with plain `enable`: Plasma also reaches graphical-session.target, and its
+# plasmashell is the notification server there, so mako would race it for
+# org.freedesktop.Notifications. Starting mako with the session (not on the first
+# notification) also matters once plasma-workspace is installed: it ships a second
+# D-Bus service file for that name, and which of the two D-Bus activates is undefined.
+systemctl --user disable mako.service # drop links from earlier runs
+systemctl --user add-wants wayland-session-xdg-autostart@hyprland.desktop.target mako.service
+systemctl --user add-wants wayland-session-xdg-autostart@mango.desktop.target mako.service
+
+# The three units below are enabled for every graphical session and skip
+# themselves (ExecCondition) where the session brings its own: Plasma always,
+# Hyprland for the wallpaper and the polkit agent. The unit files live in this repo;
+# `enable` with a path symlinks them into ~/.config/systemd/user/ and enables them.
+
+# Clipboard history; skipped under Plasma (plasmashell keeps its own).
 systemctl --user enable "$dotfiles/other/systemd/user/cliphist.service"
 
-# Wallpaper for every graphical session except Hyprland (it skips itself there;
-# Hyprland runs hyprpaper, hooked in above).
+# Wallpaper; skipped under Hyprland (hyprpaper, hooked in above) and Plasma.
 systemctl --user enable "$dotfiles/other/systemd/user/swaybg.service"
 
-# Polkit agent for every graphical session except Hyprland (it skips itself there;
-# Hyprland runs hyprpolkitagent, hooked in above).
+# Polkit agent; skipped under Hyprland (hyprpolkitagent, hooked in above) and
+# Plasma (polkit-kde-agent).
 systemctl --user enable "$dotfiles/other/systemd/user/polkit-gnome-agent.service"
 
 # cursors

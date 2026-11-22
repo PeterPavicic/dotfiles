@@ -1,7 +1,7 @@
-# Wallpaper for every uwsm-managed Wayland session except Hyprland, which runs
-# hyprpaper (hooked into Hyprland's session only by other/install_script.sh).
-# swaybg works on any compositor with wlr-layer-shell, so it is the default for
-# everything else (Mango, ...).
+# Wallpaper for every Wayland session except Hyprland, which runs hyprpaper (hooked
+# into Hyprland's session only by other/install_script.sh), and Plasma, which draws
+# its own wallpaper. swaybg works on any compositor with wlr-layer-shell, so it is
+# the default for everything else (Mango, ...).
 #
 # Installed by other/install_script.sh with:
 #   systemctl --user enable ~/dotfiles/other/systemd/user/swaybg.service
@@ -11,16 +11,17 @@
 # Keep the image in sync with `path` in ~/.config/hypr/hyprpaper.conf.
 
 [Unit]
-Description=Wallpaper (swaybg) for every compositor except Hyprland
+Description=Wallpaper (swaybg) for every compositor except Hyprland and Plasma
 Documentation=man:swaybg(1)
 After=graphical-session.target
 PartOf=graphical-session.target
 
 [Service]
 Type=exec
-# Skip (not fail) under Hyprland. uwsm exports XDG_CURRENT_DESKTOP to the user
-# manager; it is a colon-separated list. `$$` passes a literal `$` to sh.
-ExecCondition=/bin/sh -c 'case ":$${XDG_CURRENT_DESKTOP}:" in *:Hyprland:*) exit 1 ;; esac'
+# Skip (not fail) under Hyprland and Plasma (XDG_CURRENT_DESKTOP=KDE). uwsm and
+# Plasma both export XDG_CURRENT_DESKTOP to the user manager; it is a
+# colon-separated list. `$$` passes a literal `$` to sh.
+ExecCondition=/bin/sh -c 'case ":$${XDG_CURRENT_DESKTOP}:" in *:Hyprland:*|*:KDE:*) exit 1 ;; esac'
 ExecStart=/usr/bin/swaybg --image %h/wallpapers/snoopy_in_space.jpg --mode fill
 Restart=on-failure
 Slice=app-graphical.slice
