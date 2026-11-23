@@ -42,6 +42,6 @@
   "mango/language": {
     // no on-click yet: hypr/switchLayout.sh uses hyprctl
     "format": "{short}",
-    "on-click": "$HOME/.config/mango/switchLayout.sh"
+    "on-click": "$HOME/.config/mango/scripts/switchKeyboardLayout.sh"
   }
 }
