@@ -33,7 +33,7 @@ packages=(
   waybar blueman pavucontrol mako rofi rofi-calc rofi-emoji
 
   # neovim/tmux
-  tree-sitter tree-sitter-cli fd ripgrep npm imagemagick
+  tree-sitter tree-sitter-cli fd ripgrep npm imagemagick vscode-json-languageserver
 
   # utilities
   less tailscale fastfetch wl-clipboard cliphist reflector power-profiles-daemon bluez-obex strace
