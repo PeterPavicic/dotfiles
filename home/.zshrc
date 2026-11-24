@@ -139,7 +139,7 @@ _load_zsh_plugin() {
 _load_zsh_plugin zsh-autosuggestions
 
 # Search path for cd builtin (similar to regular PATH), POSIX compliant
-CDPATH=.:$HOME/projects:$HOME/.config
+CDPATH=.:$HOME/projects
 
 ######## Local overrides ########
 [[ -f "$HOME/.zshrc.local" ]] && source "$HOME/.zshrc.local"
