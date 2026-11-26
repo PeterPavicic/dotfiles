@@ -93,6 +93,9 @@ cat >"$dotfiles/.git/hooks/post-merge" <<'EOF'
 EOF
 chmod +x "$dotfiles/.git/hooks/post-merge"
 
+mkdir -p "$HOME/.local/share/rofi"
+ln -sfn "$HOME/dotfiles/other/rofi-theme/themes" "$HOME/.local/share/rofi/themes"
+
 # Install yay if not installed
 if ! command -v yay &>/dev/null; then
   git clone https://aur.archlinux.org/yay.git "$HOME/yay"
